@@ -1,45 +1,45 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Sravni.tj — сравнение банков</title>
+<title>Sravni.tj — сравнение банков Таджикистана</title>
 
 <style>
 
 body{
-font-family:system-ui;
+font-family:Arial,Helvetica,sans-serif;
 margin:0;
-background:#f4f7fb;
-color:#222;
+background:#f5f7fb;
+color:#1a1a1a;
 }
 
 header{
-background:linear-gradient(135deg,#0048ff,#00a8ff);
+background:linear-gradient(135deg,#0057ff,#00aaff);
 color:white;
-padding:50px 20px;
+padding:40px;
 text-align:center;
 }
 
+h1{
+margin:0;
+font-size:32px;
+}
+
 .container{
-max-width:1200px;
+max-width:1100px;
 margin:auto;
 padding:30px;
 }
 
 .card{
 background:white;
+border-radius:12px;
 padding:25px;
-border-radius:14px;
-box-shadow:0 8px 20px rgba(0,0,0,0.08);
 margin-bottom:25px;
-}
-
-h1{
-margin:0;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
 }
 
 table{
@@ -48,33 +48,33 @@ border-collapse:collapse;
 }
 
 th,td{
-padding:12px;
+padding:10px;
 border-bottom:1px solid #eee;
+text-align:left;
 }
 
 th{
 background:#fafafa;
 }
 
-input{
-padding:10px;
-border:1px solid #ccc;
-border-radius:8px;
-width:100%;
-}
-
 button{
 background:#0057ff;
 color:white;
 border:none;
-padding:10px 18px;
+padding:10px 20px;
 border-radius:8px;
 cursor:pointer;
-margin-top:10px;
 }
 
 button:hover{
-background:#0041c2;
+background:#0040cc;
+}
+
+input{
+padding:8px;
+border:1px solid #ccc;
+border-radius:6px;
+width:100%;
 }
 
 .grid{
@@ -83,43 +83,36 @@ grid-template-columns:1fr 1fr;
 gap:20px;
 }
 
-@media(max-width:900px){
+@media(max-width:800px){
 .grid{
 grid-template-columns:1fr;
 }
 }
 
-.rating{
-font-weight:bold;
-color:#0057ff;
-}
-
 .result{
-background:#eef3ff;
+background:#f0f5ff;
 padding:15px;
-border-radius:10px;
-margin-top:10px;
+border-radius:8px;
+margin-top:15px;
 }
 
 .footer{
 text-align:center;
 padding:30px;
+font-size:14px;
 color:#777;
 }
 
 </style>
 
 </head>
-
 <body>
 
 <header>
 
 <h1>Sravni.tj</h1>
-
 <p>Сравнение банков Таджикистана</p>
-
-<p style="font-size:14px">Источник: НБТ (31.12.2025)</p>
+<p>Источник данных: НБТ (31.12.2025)</p>
 
 </header>
 
@@ -127,59 +120,51 @@ color:#777;
 
 <div class="card">
 
-<h2>Поиск банка</h2>
-
-<input type="text" id="search" placeholder="Введите название банка..." onkeyup="searchBank()">
-
-</div>
-
-<div class="card">
-
 <h2>Банки</h2>
 
-<table id="bankTable">
+<table>
 
 <tr>
 <th>Банк</th>
 <th>Активы</th>
+<th>Кредиты</th>
+<th>Депозиты</th>
 <th>ROA</th>
 <th>ROE</th>
-<th>Рейтинг</th>
 </tr>
 
 <tr>
 <td>Ориёнбанк</td>
-<td>21.5 млрд</td>
+<td>21 500 млн</td>
+<td>15 000 млн</td>
+<td>12 000 млн</td>
 <td>3.2%</td>
 <td>18.1%</td>
-<td class="rating">9.2</td>
-</tr>
-
-<tr>
-<td>Эсхата Банк</td>
-<td>17.4 млрд</td>
-<td>3.5%</td>
-<td>19.3%</td>
-<td class="rating">9.0</td>
 </tr>
 
 <tr>
 <td>Амонатбанк</td>
-<td>19.0 млрд</td>
+<td>19 000 млн</td>
+<td>12 200 млн</td>
+<td>10 500 млн</td>
 <td>2.8%</td>
 <td>15.7%</td>
-<td class="rating">8.4</td>
 </tr>
 
 <tr>
-<td>Спитамен Банк</td>
-<td>14.3 млрд</td>
-<td>3.0%</td>
-<td>17.5%</td>
-<td class="rating">8.7</td>
+<td>Эсхата Банк</td>
+<td>17 400 млн</td>
+<td>11 900 млн</td>
+<td>9 800 млн</td>
+<td>3.5%</td>
+<td>19.3%</td>
 </tr>
 
 </table>
+
+<p style="margin-top:10px;font-size:14px;color:#666">
+Период данных: 31.12.2025 (НБТ)
+</p>
 
 </div>
 
@@ -198,6 +183,8 @@ color:#777;
 <label>Ставка % годовых</label>
 <input id="rate" value="24">
 
+<br><br>
+
 <button onclick="calc()">Рассчитать</button>
 
 <div id="result" class="result" style="display:none"></div>
@@ -209,12 +196,10 @@ color:#777;
 <h2>Карты</h2>
 
 <ul>
-
 <li>Visa</li>
 <li>Mastercard</li>
 <li>UnionPay</li>
 <li>Humo — национальная платёжная система</li>
-
 </ul>
 
 </div>
@@ -225,7 +210,7 @@ color:#777;
 
 <div class="footer">
 
-Sravni.tj © 2026
+Sravni.tj — агрегатор банковских продуктов Таджикистана
 
 </div>
 
@@ -234,9 +219,7 @@ Sravni.tj © 2026
 function calc(){
 
 let P=parseFloat(document.getElementById("amount").value);
-
 let n=parseInt(document.getElementById("months").value);
-
 let rate=parseFloat(document.getElementById("rate").value);
 
 let r=rate/100/12;
@@ -255,34 +238,8 @@ document.getElementById("result").innerHTML=
 
 "<b>Ежемесячный платёж:</b> "+monthly.toFixed(0)+" сом<br>"+
 "<b>Переплата:</b> "+overpay.toFixed(0)+" сом<br>"+
-"<b>Всего выплат:</b> "+total.toFixed(0)+" сом<br>"+
+"<b>Итого выплат:</b> "+total.toFixed(0)+" сом<br>"+
 "<b>Эффективная ставка:</b> "+eff.toFixed(2)+"%";
-
-}
-
-function searchBank(){
-
-let input=document.getElementById("search");
-
-let filter=input.value.toLowerCase();
-
-let table=document.getElementById("bankTable");
-
-let tr=table.getElementsByTagName("tr");
-
-for(let i=1;i<tr.length;i++){
-
-let td=tr[i].getElementsByTagName("td")[0];
-
-if(td){
-
-let txt=td.textContent;
-
-tr[i].style.display=txt.toLowerCase().indexOf(filter)>-1?"":"none";
-
-}
-
-}
 
 }
 
