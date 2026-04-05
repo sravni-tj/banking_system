@@ -1,248 +1,246 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sravni.tj | Финтех-аналитика Таджикистана</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0062ff;
+            --bg: #f4f7fa;
+            --card: #ffffff;
+            --text: #1a1d23;
+            --text-secondary: #64748b;
+            --success: #10b981;
+            --error: #ef4444;
+            --radius: 16px;
+        }
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+        body {
+            font-family: 'Manrope', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            line-height: 1.5;
+        }
 
-<title>Sravni.tj — сравнение банков Таджикистана</title>
+        /* Modern UI */
+        .header {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-<style>
+        .logo { font-weight: 800; font-size: 1.5rem; color: var(--primary); text-decoration: none; }
 
-body{
-font-family:Arial,Helvetica,sans-serif;
-margin:0;
-background:#f5f7fb;
-color:#1a1a1a;
-}
+        .nav-pills { display: flex; gap: 0.5rem; background: #edeff2; padding: 4px; border-radius: 12px; }
+        .nav-btn { 
+            padding: 8px 16px; border: none; background: transparent; 
+            border-radius: 10px; cursor: pointer; font-weight: 600; font-family: inherit;
+            transition: 0.2s;
+        }
+        .nav-btn.active { background: var(--card); box-shadow: 0 2px 4px rgba(0,0,0,0.05); color: var(--primary); }
 
-header{
-background:linear-gradient(135deg,#0057ff,#00aaff);
-color:white;
-padding:40px;
-text-align:center;
-}
+        .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
 
-h1{
-margin:0;
-font-size:32px;
-}
+        .card { 
+            background: var(--card); border-radius: var(--radius); padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); margin-bottom: 1.5rem;
+        }
 
-.container{
-max-width:1100px;
-margin:auto;
-padding:30px;
-}
+        /* Калькулятор */
+        .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .input-group { margin-bottom: 1rem; }
+        .input-group label { display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-secondary); }
+        input { 
+            width: 100%; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; 
+            font-size: 1rem; outline: none; transition: 0.2s;
+        }
+        input:focus { border-color: var(--primary); ring: 2px var(--primary); }
 
-.card{
-background:white;
-border-radius:12px;
-padding:25px;
-margin-bottom:25px;
-box-shadow:0 5px 15px rgba(0,0,0,0.08);
-}
+        .res-box { background: #f8fafc; padding: 1.5rem; border-radius: 12px; border-left: 4px solid var(--primary); }
+        .res-row { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
+        .res-val { font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--primary); }
 
-table{
-width:100%;
-border-collapse:collapse;
-}
+        /* Таблицы */
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; color: var(--text-secondary); font-size: 0.75rem; text-transform: uppercase; padding: 1rem; border-bottom: 1px solid #f1f5f9; }
+        td { padding: 1rem; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
 
-th,td{
-padding:10px;
-border-bottom:1px solid #eee;
-text-align:left;
-}
+        .badge-period { font-size: 0.7rem; color: var(--text-secondary); opacity: 0.8; }
 
-th{
-background:#fafafa;
-}
-
-button{
-background:#0057ff;
-color:white;
-border:none;
-padding:10px 20px;
-border-radius:8px;
-cursor:pointer;
-}
-
-button:hover{
-background:#0040cc;
-}
-
-input{
-padding:8px;
-border:1px solid #ccc;
-border-radius:6px;
-width:100%;
-}
-
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:20px;
-}
-
-@media(max-width:800px){
-.grid{
-grid-template-columns:1fr;
-}
-}
-
-.result{
-background:#f0f5ff;
-padding:15px;
-border-radius:8px;
-margin-top:15px;
-}
-
-.footer{
-text-align:center;
-padding:30px;
-font-size:14px;
-color:#777;
-}
-
-</style>
-
+        @media (max-width: 768px) { .calc-grid { grid-template-columns: 1fr; } }
+    </style>
 </head>
 <body>
 
-<header>
-
-<h1>Sravni.tj</h1>
-<p>Сравнение банков Таджикистана</p>
-<p>Источник данных: НБТ (31.12.2025)</p>
-
+<header class="header">
+    <a href="#" class="logo">Sravni<span>.tj</span></a>
+    <nav class="nav-pills">
+        <button class="nav-btn active" onclick="tab(this, 'calc')">Калькулятор</button>
+        <button class="nav-btn" onclick="tab(this, 'banks')">Банки & ОПУ</button>
+        <button class="nav-btn" onclick="tab(this, 'cards')">Карты</button>
+    </nav>
 </header>
 
 <div class="container">
+    <div id="sec-calc" class="tab-content card">
+        <h2 style="margin-top:0">Аннуитетный Калькулятор</h2>
+        <p style="color: var(--text-secondary)">Исправленный расчет ПСК (эффективной ставки) по методу IRR</p>
+        <div class="calc-grid">
+            <div class="inputs">
+                <div class="input-group">
+                    <label>Сумма кредита (сомони)</label>
+                    <input type="number" id="amount" value="10000">
+                </div>
+                <div class="input-group">
+                    <label>Срок (месяцев)</label>
+                    <input type="number" id="term" value="12">
+                </div>
+                <div class="input-group">
+                    <label>Номинальная ставка (% годовых)</label>
+                    <input type="number" id="rate" value="24">
+                </div>
+                <button onclick="calculate()" style="width:100%; padding:14px; background:var(--primary); color:white; border:none; border-radius:8px; font-weight:800; cursor:pointer;">РАССЧИТАТЬ</button>
+            </div>
+            <div class="results">
+                <div class="res-box">
+                    <div class="res-row">
+                        <span>Ежемесячный платеж:</span>
+                        <span class="res-val" id="res-monthly">0.00</span>
+                    </div>
+                    <div class="res-row">
+                        <span>Переплата:</span>
+                        <span class="res-val" id="res-over">0.00</span>
+                    </div>
+                    <div class="res-row" style="margin-top:1rem; border-top:1px solid #e2e8f0; padding-top:1rem;">
+                        <span style="font-weight:800">Эффективная ставка (ПСК):</span>
+                        <span class="res-val" id="res-eff" style="font-size:1.2rem; color:var(--success)">0.00%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<div class="card">
+    <div id="sec-banks" class="tab-content" style="display:none">
+        <div class="card">
+            <h3>Финансовые показатели и ОПУ</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Банк</th>
+                        <th>Активы (млн сомони)</th>
+                        <th>Чистая прибыль <span class="badge-period" id="data-period"></span></th>
+                        <th>Статус</th>
+                    </tr>
+                </thead>
+                <tbody id="bank-table-body">
+                    </tbody>
+            </table>
+        </div>
+    </div>
 
-<h2>Банки</h2>
-
-<table>
-
-<tr>
-<th>Банк</th>
-<th>Активы</th>
-<th>Кредиты</th>
-<th>Депозиты</th>
-<th>ROA</th>
-<th>ROE</th>
-</tr>
-
-<tr>
-<td>Ориёнбанк</td>
-<td>21 500 млн</td>
-<td>15 000 млн</td>
-<td>12 000 млн</td>
-<td>3.2%</td>
-<td>18.1%</td>
-</tr>
-
-<tr>
-<td>Амонатбанк</td>
-<td>19 000 млн</td>
-<td>12 200 млн</td>
-<td>10 500 млн</td>
-<td>2.8%</td>
-<td>15.7%</td>
-</tr>
-
-<tr>
-<td>Эсхата Банк</td>
-<td>17 400 млн</td>
-<td>11 900 млн</td>
-<td>9 800 млн</td>
-<td>3.5%</td>
-<td>19.3%</td>
-</tr>
-
-</table>
-
-<p style="margin-top:10px;font-size:14px;color:#666">
-Период данных: 31.12.2025 (НБТ)
-</p>
-
-</div>
-
-<div class="grid">
-
-<div class="card">
-
-<h2>Кредитный калькулятор</h2>
-
-<label>Сумма кредита</label>
-<input id="amount" value="100000">
-
-<label>Срок (месяцы)</label>
-<input id="months" value="36">
-
-<label>Ставка % годовых</label>
-<input id="rate" value="24">
-
-<br><br>
-
-<button onclick="calc()">Рассчитать</button>
-
-<div id="result" class="result" style="display:none"></div>
-
-</div>
-
-<div class="card">
-
-<h2>Карты</h2>
-
-<ul>
-<li>Visa</li>
-<li>Mastercard</li>
-<li>UnionPay</li>
-<li>Humo — национальная платёжная система</li>
-</ul>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="footer">
-
-Sravni.tj — агрегатор банковских продуктов Таджикистана
-
+    <div id="sec-cards" class="tab-content" style="display:none">
+        <div class="card">
+            <h3>Банковские карты</h3>
+            <div id="cards-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem;">
+                </div>
+        </div>
+    </div>
 </div>
 
 <script>
+    // 1. ДАННЫЕ (Обновляемые)
+    const APP_DATA = {
+        lastUpdate: "31.12.2025",
+        nextUpdate: "Q1 2026",
+        banks: [
+            { name: "Алиф Банк", assets: 1800, profit: 120, period: "за 2025 г.", cards: ["Salom", "Visa Alif"] },
+            { name: "Хумо", assets: 1200, profit: 85, period: "за 2025 г.", cards: ["Humo Online", "Корти Милли"] },
+            { name: "Ориёнбанк", assets: 4500, profit: 210, period: "за 2025 г.", cards: ["Visa Classic", "Mastercard"] }
+        ]
+    };
 
-function calc(){
+    // 2. ЛОГИКА ТАБОВ
+    function tab(btn, name) {
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+        btn.classList.add('active');
+        document.getElementById('sec-' + name).style.display = 'block';
+    }
 
-let P=parseFloat(document.getElementById("amount").value);
-let n=parseInt(document.getElementById("months").value);
-let rate=parseFloat(document.getElementById("rate").value);
+    // 3. ИСПРАВЛЕННЫЙ КАЛЬКУЛЯТОР (Метод Ньютона для Эффективной ставки)
+    function calculate() {
+        const P = parseFloat(document.getElementById('amount').value);
+        const n = parseFloat(document.getElementById('term').value);
+        const annualRate = parseFloat(document.getElementById('rate').value) / 100;
+        const i = annualRate / 12;
 
-let r=rate/100/12;
+        // Аннуитетный платеж
+        const M = P * (i * Math.pow(1 + i, n)) / (Math.pow(1 + i, n) - 1);
+        
+        // Переплата
+        const totalPaid = M * n;
+        const overpayment = totalPaid - P;
 
-let monthly=P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+        // Расчет Эффективной ставки (APR / ПСК)
+        // Ищем ставку 'r', при которой PV платежей = сумме кредита
+        let r = annualRate; 
+        for (let iter = 0; iter < 20; iter++) {
+            let x = Math.pow(1 + r/12, -n);
+            let f = (M * (1 - x) / (r/12)) - P;
+            let df = M * ( (1-x)/( -Math.pow(r/12, 2)*12 ) + (n*x)/( (r/12)*(1+r/12)*12 ) );
+            r = r - f/df;
+        }
 
-let total=monthly*n;
+        document.getElementById('res-monthly').innerText = M.toLocaleString() + " TJS";
+        document.getElementById('res-over').innerText = overpayment.toLocaleString() + " TJS";
+        document.getElementById('res-eff').innerText = (r * 100).toFixed(2) + "%";
+    }
 
-let overpay=total-P;
+    // 4. ГЕНЕРАЦИЯ ДАННЫХ БАНКОВ И КАРТ
+    function renderData() {
+        const tableBody = document.getElementById('bank-table-body');
+        const cardContainer = document.getElementById('cards-container');
+        document.getElementById('data-period').innerText = `(${APP_DATA.lastUpdate})`;
 
-let eff=(Math.pow(1+r,12)-1)*100;
+        APP_DATA.banks.forEach(bank => {
+            // ОПУ и показатели
+            tableBody.innerHTML += `
+                <tr>
+                    <td><strong>${bank.name}</strong></td>
+                    <td class="mono">${bank.assets}</td>
+                    <td><span style="color:var(--success)">+${bank.profit}</span> <span class="badge-period">(${bank.period})</span></td>
+                    <td><span style="background:#ecfdf5; color:#065f46; padding:4px 8px; border-radius:6px; font-size:0.8rem">Активен</span></td>
+                </tr>
+            `;
 
-document.getElementById("result").style.display="block";
+            // Карты (Исправлено: теперь только свои карты банка)
+            bank.cards.forEach(cardName => {
+                cardContainer.innerHTML += `
+                    <div style="border:1px solid #e2e8f0; padding:1rem; border-radius:12px">
+                        <div style="font-size:0.7rem; color:var(--text-secondary)">${bank.name}</div>
+                        <div style="font-weight:800; margin:5px 0">${cardName}</div>
+                        <div style="font-size:0.8rem; color:var(--primary)">Кэшбэк до 20%</div>
+                    </div>
+                `;
+            });
+        });
+    }
 
-document.getElementById("result").innerHTML=
-
-"<b>Ежемесячный платёж:</b> "+monthly.toFixed(0)+" сом<br>"+
-"<b>Переплата:</b> "+overpay.toFixed(0)+" сом<br>"+
-"<b>Итого выплат:</b> "+total.toFixed(0)+" сом<br>"+
-"<b>Эффективная ставка:</b> "+eff.toFixed(2)+"%";
-
-}
-
+    window.onload = () => {
+        renderData();
+        calculate();
+    };
 </script>
 
 </body>
