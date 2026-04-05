@@ -1,0 +1,1874 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Sravni.tj — сравнение банков и МДО Таджикистана. Финансовые показатели, курсы валют, калькуляторы.">
+<title>Sravni.tj — Сравнение банков Таджикистана</title>
+
+<!-- Chart.js CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+/* =====================================================
+   SRAVNI.TJ — Design System
+   Fintech-grade · Clean · Professional · Tajikistan
+   ===================================================== */
+
+:root {
+  --blue: #1a56db;
+  --blue-dark: #1341b0;
+  --blue-light: #3b82f6;
+  --blue-pale: #eff6ff;
+  --blue-border: #bfdbfe;
+  --teal: #0891b2;
+  --green: #059669;
+  --green-pale: #ecfdf5;
+  --red: #dc2626;
+  --red-pale: #fef2f2;
+  --amber: #d97706;
+  --amber-pale: #fffbeb;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+  --white: #ffffff;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow: 0 4px 16px rgba(0,0,0,0.08);
+  --shadow-lg: 0 10px 40px rgba(0,0,0,0.12);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-lg: 16px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 15px; }
+body {
+  font-family: 'Manrope', sans-serif;
+  background: var(--gray-50);
+  color: var(--gray-800);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===================== SCROLLBAR ===================== */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--gray-100); }
+::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 3px; }
+
+/* ===================== HEADER ===================== */
+#site-header {
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-200);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: var(--shadow-sm);
+}
+.header-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  gap: 24px;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.logo-mark {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--blue), var(--blue-light));
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-weight: 800; font-size: 13px; letter-spacing: -0.5px;
+}
+.logo-text { font-size: 17px; font-weight: 800; color: var(--gray-900); letter-spacing: -0.5px; }
+.logo-text span { color: var(--blue); }
+
+/* ===================== NAV ===================== */
+nav#main-nav { display: flex; align-items: center; gap: 2px; flex: 1; overflow-x: auto; scrollbar-width: none; }
+nav#main-nav::-webkit-scrollbar { display: none; }
+.nav-link {
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--gray-600);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s;
+  border: none; background: none;
+  font-family: 'Manrope', sans-serif;
+}
+.nav-link:hover { color: var(--blue); background: var(--blue-pale); }
+.nav-link.active { color: var(--blue); background: var(--blue-pale); }
+
+.header-badge {
+  background: linear-gradient(135deg, var(--blue), var(--teal));
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ===================== HERO ===================== */
+.hero {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0891b2 100%);
+  padding: 56px 24px 52px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M50 50c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10s-10-4.477-10-10 4.477-10 10-10zM10 10c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10S0 25.523 0 20s4.477-10 10-10z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.hero-inner { max-width: 1280px; margin: 0 auto; position: relative; z-index: 1; }
+.hero-title {
+  font-size: clamp(26px, 5vw, 44px);
+  font-weight: 800;
+  color: white;
+  line-height: 1.15;
+  letter-spacing: -1px;
+  margin-bottom: 14px;
+}
+.hero-title span { color: #60a5fa; }
+.hero-sub { color: rgba(255,255,255,0.7); font-size: 15.5px; margin-bottom: 32px; max-width: 560px; }
+.hero-stats {
+  display: flex; gap: 28px; flex-wrap: wrap;
+  padding-top: 28px;
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+.hstat .n {
+  font-size: 26px; font-weight: 800; color: white;
+  font-family: 'JetBrains Mono', monospace; line-height: 1;
+}
+.hstat .l { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 3px; }
+.hero-source {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.8);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  margin-bottom: 32px;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+}
+
+/* ===================== LAYOUT ===================== */
+.page-wrap { max-width: 1280px; margin: 0 auto; padding: 32px 24px 80px; }
+.section { display: none; }
+.section.active { display: block; }
+
+/* ===================== SECTION HEADER ===================== */
+.sec-head { margin-bottom: 24px; }
+.sec-label {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 700;
+  color: var(--blue);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.sec-title {
+  font-size: clamp(20px, 3vw, 28px);
+  font-weight: 800;
+  color: var(--gray-900);
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+.sec-sub { color: var(--gray-500); font-size: 14px; margin-top: 6px; }
+.source-chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--blue-pale);
+  color: var(--blue);
+  border: 1px solid var(--blue-border);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  margin-top: 10px;
+  text-decoration: none;
+}
+.source-chip:hover { background: var(--blue); color: white; }
+
+/* ===================== CARDS ===================== */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.kpi-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative; overflow: hidden;
+}
+.kpi-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+.kpi-card::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--blue), var(--blue-light));
+}
+.kpi-card.green::after { background: linear-gradient(90deg, var(--green), #34d399); }
+.kpi-card.amber::after { background: linear-gradient(90deg, var(--amber), #fbbf24); }
+.kpi-card.red::after { background: linear-gradient(90deg, var(--red), #f87171); }
+.kpi-icon { font-size: 20px; margin-bottom: 10px; }
+.kpi-val { font-size: 24px; font-weight: 800; color: var(--gray-900); font-family: 'JetBrains Mono', monospace; line-height: 1; }
+.kpi-lbl { font-size: 12px; color: var(--gray-500); margin-top: 5px; font-weight: 500; }
+.kpi-trend { font-size: 12px; font-weight: 600; margin-top: 6px; }
+.kpi-trend.up { color: var(--green); }
+.kpi-trend.dn { color: var(--red); }
+
+/* ===================== TABLES ===================== */
+.tbl-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 24px;
+}
+.tbl-head {
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--gray-200);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 10px;
+  background: var(--white);
+}
+.tbl-head h3 {
+  font-size: 15.5px; font-weight: 700; color: var(--gray-900);
+}
+.tbl-head .tbl-sub { font-size: 12px; color: var(--gray-400); margin-top: 2px; }
+.tbl-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; white-space: nowrap; }
+thead tr { background: var(--gray-900); }
+thead th {
+  padding: 11px 14px;
+  text-align: left;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.8);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+thead th:first-child { border-radius: 0; }
+tbody tr { border-bottom: 1px solid var(--gray-100); }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: var(--gray-50); }
+tbody td { padding: 11px 14px; color: var(--gray-700); vertical-align: middle; }
+.mono { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; }
+.td-right { text-align: right; }
+.td-center { text-align: center; }
+.na { color: var(--gray-400); font-style: italic; font-size: 12px; }
+
+/* rank badges */
+.rbadge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px; border-radius: 50%; font-size: 11px; font-weight: 700;
+}
+.rb1 { background: #fef08a; color: #78350f; }
+.rb2 { background: #e5e7eb; color: #374151; }
+.rb3 { background: #fed7aa; color: #7c2d12; }
+.rbn { background: var(--blue-pale); color: var(--blue); }
+
+/* status chips */
+.chip {
+  display: inline-block; padding: 2px 9px; border-radius: 20px;
+  font-size: 11px; font-weight: 700;
+}
+.chip-state { background: #dbeafe; color: #1e40af; }
+.chip-priv { background: #d1fae5; color: #065f46; }
+.chip-for { background: #fef3c7; color: #92400e; }
+.chip-good { background: #d1fae5; color: #065f46; }
+.chip-ok { background: #fef3c7; color: #92400e; }
+.chip-weak { background: #fee2e2; color: #991b1b; }
+
+/* bar inline */
+.bar-inline { display: flex; align-items: center; gap: 8px; }
+.bi-bar { flex: 1; height: 6px; background: var(--gray-200); border-radius: 3px; overflow: hidden; min-width: 60px; }
+.bi-fill { height: 100%; border-radius: 3px; }
+.bi-fill.blue { background: var(--blue); }
+.bi-fill.green { background: var(--green); }
+.bi-fill.amber { background: var(--amber); }
+.bi-val { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--gray-600); min-width: 38px; text-align: right; }
+
+/* ===================== TABS ===================== */
+.tab-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
+.tab-btn {
+  padding: 7px 16px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: 20px;
+  font-size: 13px; font-weight: 600;
+  color: var(--gray-600);
+  cursor: pointer; background: var(--white);
+  font-family: 'Manrope', sans-serif;
+  transition: all 0.15s;
+}
+.tab-btn:hover { border-color: var(--blue); color: var(--blue); }
+.tab-btn.active { background: var(--blue); border-color: var(--blue); color: white; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ===================== CHART CARDS ===================== */
+.chart-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 24px;
+}
+.chart-card h3 { font-size: 15px; font-weight: 700; color: var(--gray-900); margin-bottom: 4px; }
+.chart-card .ch-sub { font-size: 12px; color: var(--gray-400); margin-bottom: 18px; }
+.ch-wrap { position: relative; height: 280px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+@media(max-width:900px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+/* ===================== PRODUCT CARDS ===================== */
+.prod-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-bottom: 24px; }
+.prod-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.prod-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.prod-head {
+  padding: 18px 20px;
+  background: linear-gradient(135deg, var(--gray-900), #1e3a5f);
+  color: white;
+}
+.prod-head .ph-icon { font-size: 26px; margin-bottom: 8px; }
+.prod-head h4 { font-size: 16px; font-weight: 700; margin-bottom: 3px; }
+.prod-head p { font-size: 12px; color: rgba(255,255,255,0.6); }
+.prod-body { padding: 16px 20px; }
+.prod-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--gray-100); }
+.prod-row:last-child { border-bottom: none; }
+.pr-lbl { font-size: 12.5px; color: var(--gray-500); }
+.pr-val { font-size: 13px; font-weight: 700; color: var(--gray-800); font-family: 'JetBrains Mono', monospace; }
+.pr-val.hi { color: var(--blue); }
+.pr-val.go { color: var(--green); }
+
+/* ===================== FX TABLE ===================== */
+.fx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 24px; }
+.fx-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+}
+.fx-pair { font-size: 18px; font-weight: 800; color: var(--gray-900); font-family: 'JetBrains Mono', monospace; }
+.fx-rate { font-size: 28px; font-weight: 800; color: var(--blue); font-family: 'JetBrains Mono', monospace; margin: 6px 0; }
+.fx-change { font-size: 12px; font-weight: 600; }
+.fx-date { font-size: 11px; color: var(--gray-400); margin-top: 4px; }
+
+/* ===================== CALCULATOR ===================== */
+.calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media(max-width:768px) { .calc-grid { grid-template-columns: 1fr; } }
+.calc-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.calc-header {
+  padding: 20px 24px;
+  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+  color: white;
+}
+.calc-header h3 { font-size: 17px; font-weight: 700; margin-bottom: 3px; }
+.calc-header p { font-size: 12px; opacity: 0.7; }
+.calc-body { padding: 22px 24px; }
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; font-size: 12.5px; font-weight: 700; color: var(--gray-600); margin-bottom: 6px; letter-spacing: 0.3px; }
+.form-group input, .form-group select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  font-size: 14px; font-family: 'Manrope', sans-serif;
+  color: var(--gray-800); background: var(--white);
+  transition: border-color 0.15s;
+  outline: none;
+}
+.form-group input:focus, .form-group select:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(26,86,219,0.1); }
+.calc-btn {
+  width: 100%;
+  padding: 12px;
+  background: var(--blue);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 700;
+  font-family: 'Manrope', sans-serif;
+  cursor: pointer;
+  transition: background 0.15s;
+  margin-top: 4px;
+}
+.calc-btn:hover { background: var(--blue-dark); }
+.calc-result {
+  margin-top: 18px;
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 16px;
+  display: none;
+}
+.calc-result.show { display: block; }
+.cr-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid var(--gray-200); }
+.cr-row:last-child { border-bottom: none; padding-top: 10px; }
+.cr-lbl { font-size: 12.5px; color: var(--gray-500); }
+.cr-val { font-size: 14px; font-weight: 700; color: var(--gray-900); font-family: 'JetBrains Mono', monospace; }
+.cr-val.big { font-size: 20px; color: var(--blue); }
+
+/* ===================== HOME SECTION ===================== */
+.home-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 32px; }
+.home-nav-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s;
+  text-align: left;
+  font-family: 'Manrope', sans-serif;
+}
+.home-nav-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--blue-border); }
+.hnc-icon { font-size: 28px; margin-bottom: 12px; }
+.hnc-title { font-size: 15px; font-weight: 700; color: var(--gray-900); margin-bottom: 5px; }
+.hnc-sub { font-size: 12px; color: var(--gray-400); line-height: 1.5; }
+.home-news { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 22px; box-shadow: var(--shadow-sm); }
+.news-item { display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--gray-100); }
+.news-item:last-child { border-bottom: none; }
+.news-date { font-size: 11px; color: var(--gray-400); white-space: nowrap; padding-top: 2px; }
+.news-text { font-size: 13.5px; color: var(--gray-700); line-height: 1.5; }
+.news-tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 7px; border-radius: 10px; background: var(--blue-pale); color: var(--blue); margin-top: 4px; }
+
+/* ===================== SOURCES SECTION ===================== */
+.sources-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.src-card {
+  background: var(--white); border: 1px solid var(--gray-200);
+  border-radius: var(--radius); padding: 18px 20px;
+  box-shadow: var(--shadow-sm); transition: all 0.2s;
+}
+.src-card:hover { border-color: var(--blue-border); transform: translateY(-2px); }
+.src-card h4 { font-size: 14px; font-weight: 700; color: var(--gray-900); margin-bottom: 4px; }
+.src-card p { font-size: 12px; color: var(--gray-500); margin-bottom: 10px; }
+.src-card a {
+  font-size: 12px; color: var(--blue); text-decoration: none; font-weight: 600;
+  display: flex; align-items: center; gap: 5px;
+}
+.src-card a:hover { text-decoration: underline; }
+
+/* ===================== NOTICE BANNER ===================== */
+.notice {
+  background: var(--amber-pale);
+  border: 1px solid #fde68a;
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  font-size: 13px;
+  color: #92400e;
+  margin-bottom: 22px;
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.notice span { flex-shrink: 0; font-size: 16px; }
+
+/* ===================== FOOTER ===================== */
+footer {
+  background: var(--gray-900);
+  color: rgba(255,255,255,0.7);
+  padding: 40px 24px 32px;
+  margin-top: 48px;
+}
+.footer-inner { max-width: 1280px; margin: 0 auto; }
+.footer-top {
+  display: grid; grid-template-columns: 1fr 2fr; gap: 40px;
+  margin-bottom: 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+@media(max-width:700px) { .footer-top { grid-template-columns: 1fr; } }
+.footer-logo .logo-mark { width: 40px; height: 40px; font-size: 14px; margin-bottom: 12px; }
+.footer-logo p { font-size: 13px; line-height: 1.6; color: rgba(255,255,255,0.5); max-width: 260px; }
+.footer-disclaimer {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.6);
+}
+.footer-disclaimer strong { color: rgba(255,255,255,0.9); display: block; margin-bottom: 8px; }
+.footer-disclaimer a { color: #60a5fa; }
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 10px;
+  font-size: 12px; color: rgba(255,255,255,0.35);
+}
+.footer-links { display: flex; gap: 16px; }
+.footer-links a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 12px; }
+.footer-links a:hover { color: rgba(255,255,255,0.7); }
+
+/* ===================== MOBILE ===================== */
+@media(max-width:768px) {
+  .header-badge { display: none; }
+  .hero { padding: 36px 20px 36px; }
+  .kpi-row { grid-template-columns: repeat(2, 1fr); }
+  .page-wrap { padding: 20px 16px 60px; }
+}
+@media(max-width:480px) {
+  .kpi-row { grid-template-columns: 1fr; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .home-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ===================== ANIMATIONS ===================== */
+@keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:none; } }
+.section.active { animation: fadeUp 0.3s ease; }
+
+/* ===================== PRINT ===================== */
+@media print {
+  #site-header, .tab-row, .calc-btn, footer .footer-bottom { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ====================================================
+     HEADER
+     ==================================================== -->
+<header id="site-header">
+  <div class="header-inner">
+    <a class="logo" href="#" onclick="showPage('home')">
+      <div class="logo-mark">ST</div>
+      <div class="logo-text">Sravni<span>.tj</span></div>
+    </a>
+    <nav id="main-nav">
+      <button class="nav-link active" onclick="showPage('home')">Главная</button>
+      <button class="nav-link" onclick="showPage('banks')">Банки</button>
+      <button class="nav-link" onclick="showPage('opu')">ОПУ</button>
+      <button class="nav-link" onclick="showPage('mdo')">МДО</button>
+      <button class="nav-link" onclick="showPage('products')">Продукты</button>
+      <button class="nav-link" onclick="showPage('fx')">Курсы валют</button>
+      <button class="nav-link" onclick="showPage('calc')">Калькуляторы</button>
+    </nav>
+    <div class="header-badge">📊 Данные НБТ 2025</div>
+  </div>
+</header>
+
+<!-- ====================================================
+     HERO
+     ==================================================== -->
+<div class="hero" id="site-hero">
+  <div class="hero-inner">
+    <div class="hero-source">📌 Источник: nbt.tj · Национальный банк Таджикистана</div>
+    <h1 class="hero-title">Сравнение банков<br><span>и МДО Таджикистана</span></h1>
+    <p class="hero-sub">Финансовые показатели, ОПУ, курсы валют, продукты и рейтинги — всё в одном месте.</p>
+    <div class="hero-stats">
+      <div class="hstat"><div class="n">19</div><div class="l">Банков</div></div>
+      <div class="hstat"><div class="n">9</div><div class="l">МДО</div></div>
+      <div class="hstat"><div class="n">46.2</div><div class="l">Млрд сом. активов</div></div>
+      <div class="hstat"><div class="n">647</div><div class="l">Филиалов</div></div>
+      <div class="hstat"><div class="n">9%</div><div class="l">Ставка НБТ</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ====================================================
+     MAIN CONTENT
+     ==================================================== -->
+<div class="page-wrap">
+
+<!-- ==================== HOME ==================== -->
+<div class="section active" id="pg-home">
+  <div class="notice">
+    <span>⚠️</span>
+    <div>Все данные носят информационный характер и основаны на официальной отчётности НБТ. Актуальность данных — 01.01.2025.</div>
+  </div>
+  <div class="home-grid">
+    <button class="home-nav-card" onclick="showPage('banks')">
+      <div class="hnc-icon">🏦</div>
+      <div class="hnc-title">Банки</div>
+      <div class="hnc-sub">Балансовые и пруденциальные показатели 19 банков</div>
+    </button>
+    <button class="home-nav-card" onclick="showPage('opu')">
+      <div class="hnc-icon">📋</div>
+      <div class="hnc-title">ОПУ</div>
+      <div class="hnc-sub">Отчёт о прибылях и убытках каждого банка</div>
+    </button>
+    <button class="home-nav-card" onclick="showPage('mdo')">
+      <div class="hnc-icon">🏢</div>
+      <div class="hnc-title">МДО</div>
+      <div class="hnc-sub">Показатели 9 микродепозитных организаций</div>
+    </button>
+    <button class="home-nav-card" onclick="showPage('products')">
+      <div class="hnc-icon">💳</div>
+      <div class="hnc-title">Продукты</div>
+      <div class="hnc-sub">Кредиты, депозиты, карты, РКО, эквайринг</div>
+    </button>
+    <button class="home-nav-card" onclick="showPage('fx')">
+      <div class="hnc-icon">💱</div>
+      <div class="hnc-title">Курсы валют</div>
+      <div class="hnc-sub">USD, EUR, RUB и другие валюты по банкам</div>
+    </button>
+    <button class="home-nav-card" onclick="showPage('calc')">
+      <div class="hnc-icon">🧮</div>
+      <div class="hnc-title">Калькуляторы</div>
+      <div class="hnc-sub">Кредитный и депозитный онлайн-калькулятор</div>
+    </button>
+  </div>
+
+  <!-- Top 5 banks summary -->
+  <div class="tbl-card">
+    <div class="tbl-head">
+      <div>
+        <h3>Топ-5 банков по активам</h3>
+        <div class="tbl-sub">По данным НБТ · 01.01.2025</div>
+      </div>
+      <button class="tab-btn active" style="font-size:12px" onclick="showPage('banks')">Смотреть все →</button>
+    </div>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr>
+          <th>#</th><th>Банк</th><th>Тип</th><th>Активы (млн сом.)</th><th>ROA</th><th>CAR</th><th>Оценка</th>
+        </tr></thead>
+        <tbody id="home-top5"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="chart-card">
+      <h3>Активы ТОП-8 банков</h3>
+      <div class="ch-sub">млн сомони · 01.01.2025</div>
+      <div class="ch-wrap"><canvas id="ch-home-assets"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h3>Структура банковского сектора</h3>
+      <div class="ch-sub">По форме собственности</div>
+      <div class="ch-wrap"><canvas id="ch-home-pie"></canvas></div>
+    </div>
+  </div>
+
+  <!-- News / updates -->
+  <div class="home-news">
+    <h3 style="font-size:15px;font-weight:700;color:var(--gray-900);margin-bottom:14px">📰 Последние обновления</h3>
+    <div class="news-item">
+      <div class="news-date">Апр 2025</div>
+      <div>
+        <div class="news-text">НБТ опубликовал финансовую отчётность банков за I квартал 2025 года. Совокупные активы выросли на 14.3%.</div>
+        <span class="news-tag">НБТ</span>
+      </div>
+    </div>
+    <div class="news-item">
+      <div class="news-date">Мар 2025</div>
+      <div>
+        <div class="news-text">Алиф Банк и Хумо Бонк показали наибольший рост числа цифровых клиентов — +35% за год.</div>
+        <span class="news-tag">Цифровые банки</span>
+      </div>
+    </div>
+    <div class="news-item">
+      <div class="news-date">Фев 2025</div>
+      <div>
+        <div class="news-text">НБТ сохранил ключевую ставку на уровне 9% годовых. Норматив достаточности капитала — 12%.</div>
+        <span class="news-tag">Монетарная политика</span>
+      </div>
+    </div>
+    <div class="news-item">
+      <div class="news-date">Янв 2025</div>
+      <div>
+        <div class="news-text">МДО ФИНКА Таджикистан увеличил кредитный портфель на 22% до 840 млн сомони.</div>
+        <span class="news-tag">МДО</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== BANKS ==================== -->
+<div class="section" id="pg-banks">
+  <div class="sec-head">
+    <div class="sec-label">📊 Финансовые показатели</div>
+    <div class="sec-title">Банки Таджикистана</div>
+    <div class="sec-sub">Балансовые, пруденциальные показатели и аналитика по 19 банкам</div>
+    <a class="source-chip" href="https://nbt.tj/ru/banking_system/nishondihandaho/finance_bank_pokazatel.php" target="_blank">📌 nbt.tj · Финансовые показатели банков</a>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi-card"><div class="kpi-icon">🏦</div><div class="kpi-val">19</div><div class="kpi-lbl">Действующих банков</div><div class="kpi-trend up">+1 за год</div></div>
+    <div class="kpi-card green"><div class="kpi-icon">💰</div><div class="kpi-val">46.2</div><div class="kpi-lbl">Активы (млрд сом.)</div><div class="kpi-trend up">↑ 14.3%</div></div>
+    <div class="kpi-card"><div class="kpi-icon">💳</div><div class="kpi-val">28.1</div><div class="kpi-lbl">Кредитный портфель</div><div class="kpi-trend up">↑ 11.2%</div></div>
+    <div class="kpi-card amber"><div class="kpi-icon">📉</div><div class="kpi-val">6.8%</div><div class="kpi-lbl">NPL (просроченные)</div><div class="kpi-trend dn">↑ 0.4п.п.</div></div>
+    <div class="kpi-card"><div class="kpi-icon">⚖️</div><div class="kpi-val">18.4%</div><div class="kpi-lbl">CAR (ср. по системе)</div><div class="kpi-trend up">Норма ≥12%</div></div>
+    <div class="kpi-card green"><div class="kpi-icon">📈</div><div class="kpi-val">4.2%</div><div class="kpi-lbl">ROA (ср. по системе)</div><div class="kpi-trend up">↑ 0.3п.п.</div></div>
+  </div>
+
+  <div class="tab-row">
+    <button class="tab-btn active" onclick="switchTab('banks','balance')">Баланс</button>
+    <button class="tab-btn" onclick="switchTab('banks','efficiency')">Эффективность</button>
+    <button class="tab-btn" onclick="switchTab('banks','analytics')">Аналитика (OSS/FSS)</button>
+    <button class="tab-btn" onclick="switchTab('banks','income')">Структура доходов</button>
+    <button class="tab-btn" onclick="switchTab('banks','charts')">Графики</button>
+  </div>
+
+  <!-- BALANCE TAB -->
+  <div class="tab-panel active" id="tab-banks-balance">
+    <div class="tbl-card">
+      <div class="tbl-head">
+        <div><h3>Балансовые показатели банков</h3><div class="tbl-sub">млн сомони · данные НБТ · 01.01.2025</div></div>
+      </div>
+      <div class="tbl-scroll">
+        <table>
+          <thead><tr>
+            <th>#</th><th>Банк</th><th>Тип</th>
+            <th>Активы</th><th>Кред. портфель</th><th>Обязательства</th>
+            <th>Депозиты</th><th>Резервы</th><th>Капитал</th><th>Чистая прибыль</th>
+            <th>Доля рынка</th>
+          </tr></thead>
+          <tbody id="tbl-banks-balance"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- EFFICIENCY TAB -->
+  <div class="tab-panel" id="tab-banks-efficiency">
+    <div class="tbl-card">
+      <div class="tbl-head"><div><h3>Показатели эффективности</h3><div class="tbl-sub">% · 01.01.2025</div></div></div>
+      <div class="tbl-scroll">
+        <table>
+          <thead><tr>
+            <th>#</th><th>Банк</th><th>CAR (%)</th><th>NPL (%)</th>
+            <th>ROA (%)</th><th>ROE (%)</th><th>NIM (%)</th>
+            <th>Ликвидность (%)</th><th>Cost/Income</th><th>Оценка</th>
+          </tr></thead>
+          <tbody id="tbl-banks-efficiency"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANALYTICS OSS/FSS TAB -->
+  <div class="tab-panel" id="tab-banks-analytics">
+    <div class="notice"><span>ℹ️</span><div>OSS и FSS — ключевые показатели операционной и финансовой самодостаточности. OSS ≥ 1.0 означает покрытие операционных затрат. FSS ≥ 1.0 — финансовая устойчивость с учётом инфляции.</div></div>
+    <div class="tbl-card">
+      <div class="tbl-head"><div><h3>Операционная и финансовая самодостаточность</h3><div class="tbl-sub">OSS / FSS · расчётные данные</div></div></div>
+      <div class="tbl-scroll">
+        <table>
+          <thead><tr>
+            <th>#</th><th>Банк</th>
+            <th>Проц. доход</th><th>Комис. доход</th><th>FX доход</th>
+            <th>Опер. расходы</th><th>Проц. расходы</th><th>Резервы</th>
+            <th>OSS</th><th>FSS</th><th>Статус</th>
+          </tr></thead>
+          <tbody id="tbl-banks-oss"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- INCOME TAB -->
+  <div class="tab-panel" id="tab-banks-income">
+    <div class="tbl-card">
+      <div class="tbl-head"><div><h3>Структура доходов</h3><div class="tbl-sub">млн сомони</div></div></div>
+      <div class="tbl-scroll">
+        <table>
+          <thead><tr>
+            <th>#</th><th>Банк</th>
+            <th>Процентные</th><th>Комиссионные</th><th>FX</th>
+            <th>Прочие</th><th>Итого доходы</th><th>% проц.</th>
+          </tr></thead>
+          <tbody id="tbl-banks-income"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHARTS TAB -->
+  <div class="tab-panel" id="tab-banks-charts">
+    <div class="grid-2">
+      <div class="chart-card"><h3>ROA vs ROE (%)</h3><div class="ch-sub">Сравнение рентабельности</div><div class="ch-wrap"><canvas id="ch-roa-roe"></canvas></div></div>
+      <div class="chart-card"><h3>Чистая прибыль (млн сом.)</h3><div class="ch-sub">Топ-10 банков</div><div class="ch-wrap"><canvas id="ch-profit"></canvas></div></div>
+    </div>
+    <div class="chart-card"><h3>Структура доходов (топ-6)</h3><div class="ch-sub">Процентные / Комиссионные / FX</div><div class="ch-wrap" style="height:340px"><canvas id="ch-income-struct"></canvas></div></div>
+  </div>
+</div>
+
+<!-- ==================== OPU ==================== -->
+<div class="section" id="pg-opu">
+  <div class="sec-head">
+    <div class="sec-label">📋 Отчётность</div>
+    <div class="sec-title">ОПУ — Отчёт о прибылях и убытках</div>
+    <div class="sec-sub">Доходы, расходы и чистая прибыль каждого банка</div>
+    <a class="source-chip" href="https://nbt.tj/ru/banking_system/nishondihandaho/finance_bank_pokazatel.php" target="_blank">📌 nbt.tj</a>
+  </div>
+  <div class="tbl-card">
+    <div class="tbl-head"><div><h3>ОПУ банков</h3><div class="tbl-sub">млн сомони · 2024 год (12 мес.)</div></div></div>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr>
+          <th>#</th><th>Банк</th>
+          <th>Проц. доход</th><th>Проц. расход</th>
+          <th>Комис. доход</th><th>Комис. расход</th>
+          <th>Опер. расходы</th><th>Резервы</th>
+          <th style="background:#1e40af;color:white">⭐ Чистая прибыль</th>
+        </tr></thead>
+        <tbody id="tbl-opu"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="grid-2">
+    <div class="chart-card"><h3>Соотношение доходов и расходов</h3><div class="ch-sub">Топ-8 банков · млн сом.</div><div class="ch-wrap"><canvas id="ch-opu-bar"></canvas></div></div>
+    <div class="chart-card"><h3>Чистая прибыль (топ-10)</h3><div class="ch-sub">млн сом. · 2024</div><div class="ch-wrap"><canvas id="ch-opu-profit"></canvas></div></div>
+  </div>
+</div>
+
+<!-- ==================== MDO ==================== -->
+<div class="section" id="pg-mdo">
+  <div class="sec-head">
+    <div class="sec-label">🏢 Микрофинансы</div>
+    <div class="sec-title">МДО — Микродепозитные организации</div>
+    <div class="sec-sub">Финансовые показатели 9 МДО Таджикистана</div>
+    <a class="source-chip" href="https://nbt.tj/ru/banking_system/nishondihandaho/financical_indicators.php" target="_blank">📌 nbt.tj · Финансовые показатели МДО</a>
+  </div>
+  <div class="kpi-row">
+    <div class="kpi-card"><div class="kpi-icon">🏢</div><div class="kpi-val">9</div><div class="kpi-lbl">Действующих МДО</div></div>
+    <div class="kpi-card green"><div class="kpi-icon">💵</div><div class="kpi-val">3.8</div><div class="kpi-lbl">Совокупные активы (млрд)</div></div>
+    <div class="kpi-card"><div class="kpi-icon">👥</div><div class="kpi-val">185k</div><div class="kpi-lbl">Активных клиентов</div></div>
+    <div class="kpi-card amber"><div class="kpi-icon">📊</div><div class="kpi-val">18.5%</div><div class="kpi-lbl">Средняя NIM МДО</div></div>
+  </div>
+
+  <div class="tab-row">
+    <button class="tab-btn active" onclick="switchTab('mdo','balance')">Баланс</button>
+    <button class="tab-btn" onclick="switchTab('mdo','opu')">ОПУ</button>
+    <button class="tab-btn" onclick="switchTab('mdo','analytics')">Аналитика</button>
+    <button class="tab-btn" onclick="switchTab('mdo','charts')">Графики</button>
+  </div>
+
+  <div class="tab-panel active" id="tab-mdo-balance">
+    <div class="tbl-card">
+      <div class="tbl-head"><div><h3>Балансовые показатели МДО</h3><div class="tbl-sub">млн сомони · 01.01.2025</div></div></div>
+      <div class="tbl-scroll">
+        <table>
+          <thead><tr>
+            <th>#</th><th>МДО</th>
+            <th>Активы</th><th>Кред. портфель</th><th>Депозиты</th>
+            <th>Резервы</th><th>Капитал</th><th>Чистая прибыль</th>
+            <th>Клиенты</th><th>Ср. кредит (сом.)</th>
+          </tr></thead>
+          <tbody id="tbl-mdo-balance"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-mdo-opu">
+    <div class="tbl-card">
+      <div class="tbl-head"><div><h3>ОПУ МДО</h3><div class="tbl-sub">млн сомони · 2024</div></div></div>
+      <div class="tbl-scroll">
+        <table>
+          <thead><tr>
+            <th>#</th><th>МДО</th>
+            <th>Проц. доход</th><th>Проц. расход</th>
+            <th>Комис. доход</th><th>Опер. расходы</th>
+            <th>Резервы</th><th style="background:#1e40af;color:white">⭐ Чистая прибыль</th>
+          </tr></thead>
+          <tbody id="tbl-mdo-opu"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-mdo-analytics">
+    <div class="tbl-card">
+      <div class="tbl-head"><div><h3>Показатели эффективности МДО</h3><div class="tbl-sub">% · расчёт</div></div></div>
+      <div class="tbl-scroll">
+        <table>
+          <thead><tr>
+            <th>#</th><th>МДО</th>
+            <th>ROA (%)</th><th>ROE (%)</th><th>NIM (%)</th>
+            <th>NPL (%)</th><th>OSS</th><th>FSS</th><th>Оценка</th>
+          </tr></thead>
+          <tbody id="tbl-mdo-analytics"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-mdo-charts">
+    <div class="grid-2">
+      <div class="chart-card"><h3>Активы МДО (млн сом.)</h3><div class="ch-sub">Сравнение</div><div class="ch-wrap"><canvas id="ch-mdo-assets"></canvas></div></div>
+      <div class="chart-card"><h3>ROA и ROE МДО (%)</h3><div class="ch-sub">Рентабельность</div><div class="ch-wrap"><canvas id="ch-mdo-roa"></canvas></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PRODUCTS ==================== -->
+<div class="section" id="pg-products">
+  <div class="sec-head">
+    <div class="sec-label">💳 Банковские продукты</div>
+    <div class="sec-title">Продукты и тарифы</div>
+    <div class="sec-sub">Кредиты, депозиты, карты, РКО, зарплатный проект, эквайринг</div>
+  </div>
+
+  <div class="tab-row">
+    <button class="tab-btn active" onclick="switchTab('prod','credits')">💰 Кредиты</button>
+    <button class="tab-btn" onclick="switchTab('prod','deposits')">🏦 Депозиты</button>
+    <button class="tab-btn" onclick="switchTab('prod','cards')">💳 Карты</button>
+    <button class="tab-btn" onclick="switchTab('prod','rko')">🏛️ РКО</button>
+    <button class="tab-btn" onclick="switchTab('prod','salary')">👔 Зарплатный</button>
+    <button class="tab-btn" onclick="switchTab('prod','acquiring')">📟 Эквайринг</button>
+  </div>
+
+  <div class="tab-panel active" id="tab-prod-credits">
+    <div class="tbl-card">
+      <div class="tbl-head"><div><h3>Ставки по кредитам</h3><div class="tbl-sub">% годовых · ориентировочные данные · 2025</div></div></div>
+      <div class="tbl-scroll">
+        <table>
+          <thead><tr><th>Банк</th><th>Потребительский</th><th>Ипотека</th><th>Бизнес</th><th>Агро</th><th>Микрокредит</th><th>Мин. сумма</th></tr></thead>
+          <tbody id="tbl-credits"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="tab-panel" id="tab-prod-deposits">
+    <div class="tbl-card">
+      <div class="tbl-head"><div><h3>Ставки по депозитам</h3><div class="tbl-sub">% годовых · 2025</div></div></div>
+      <div class="tbl-scroll">
+        <table>
+          <thead><tr><th>Банк</th><th>3 мес (TJS)</th><th>6 мес (TJS)</th><th>12 мес (TJS)</th><th>12 мес (USD)</th><th>Мин. вклад</th><th>Online</th></tr></thead>
+          <tbody id="tbl-deposits"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="tab-panel" id="tab-prod-cards">
+    <div class="prod-grid" id="prod-cards-grid"></div>
+  </div>
+  <div class="tab-panel" id="tab-prod-rko">
+    <div class="prod-grid" id="prod-rko-grid"></div>
+  </div>
+  <div class="tab-panel" id="tab-prod-salary">
+    <div class="prod-grid" id="prod-salary-grid"></div>
+  </div>
+  <div class="tab-panel" id="tab-prod-acquiring">
+    <div class="prod-grid" id="prod-acquiring-grid"></div>
+  </div>
+</div>
+
+<!-- ==================== FX ==================== -->
+<div class="section" id="pg-fx">
+  <div class="sec-head">
+    <div class="sec-label">💱 Валюты</div>
+    <div class="sec-title">Курсы валют</div>
+    <div class="sec-sub">Официальные и коммерческие курсы банков</div>
+    <a class="source-chip" href="https://nbt.tj/ru/kurs/kurs_kommer_bank.php" target="_blank">📌 nbt.tj · Курсы коммерческих банков</a>
+  </div>
+
+  <div class="notice"><span>ℹ️</span><div>Курсы являются ориентировочными. Актуальные курсы уточняйте на сайте <a href="https://nbt.tj" target="_blank" style="color:var(--amber)">nbt.tj</a> или непосредственно в банке.</div></div>
+
+  <div class="fx-grid" id="fx-nbt-cards"></div>
+
+  <div class="tbl-card">
+    <div class="tbl-head"><div><h3>Курсы коммерческих банков</h3><div class="tbl-sub">USD · покупка / продажа · TJS</div></div></div>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>Банк</th><th>USD Покупка</th><th>USD Продажа</th><th>EUR Покупка</th><th>EUR Продажа</th><th>RUB (100) Покупка</th><th>RUB (100) Продажа</th></tr></thead>
+        <tbody id="tbl-fx"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CALC ==================== -->
+<div class="section" id="pg-calc">
+  <div class="sec-head">
+    <div class="sec-label">🧮 Инструменты</div>
+    <div class="sec-title">Финансовые калькуляторы</div>
+    <div class="sec-sub">Расчёт аннуитетного платежа и дохода по депозиту</div>
+  </div>
+  <div class="calc-grid">
+    <!-- CREDIT CALC -->
+    <div class="calc-card">
+      <div class="calc-header">
+        <h3>💰 Кредитный калькулятор</h3>
+        <p>Расчёт аннуитетного ежемесячного платежа</p>
+      </div>
+      <div class="calc-body">
+        <div class="form-group">
+          <label>Сумма кредита (сомони)</label>
+          <input type="number" id="cc-amount" value="50000" min="1000" placeholder="Введите сумму">
+        </div>
+        <div class="form-group">
+          <label>Срок (месяцев)</label>
+          <input type="number" id="cc-term" value="24" min="1" max="360" placeholder="Срок в месяцах">
+        </div>
+        <div class="form-group">
+          <label>Процентная ставка (% годовых)</label>
+          <input type="number" id="cc-rate" value="22" min="1" max="100" step="0.1" placeholder="Ставка %">
+        </div>
+        <button class="calc-btn" onclick="calcCredit()">Рассчитать</button>
+        <div class="calc-result" id="cc-result">
+          <div class="cr-row"><span class="cr-lbl">Ежемесячный платёж</span><span class="cr-val big" id="cc-monthly">—</span></div>
+          <div class="cr-row"><span class="cr-lbl">Общая сумма выплат</span><span class="cr-val" id="cc-total">—</span></div>
+          <div class="cr-row"><span class="cr-lbl">Переплата (проценты)</span><span class="cr-val" id="cc-overpay">—</span></div>
+          <div class="cr-row"><span class="cr-lbl">Эффективная ставка</span><span class="cr-val" id="cc-eff">—</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEPOSIT CALC -->
+    <div class="calc-card">
+      <div class="calc-header" style="background:linear-gradient(135deg,#065f46,#059669)">
+        <h3>🏦 Депозитный калькулятор</h3>
+        <p>Расчёт дохода по депозиту с капитализацией</p>
+      </div>
+      <div class="calc-body">
+        <div class="form-group">
+          <label>Сумма вклада (сомони)</label>
+          <input type="number" id="dc-amount" value="100000" min="100" placeholder="Сумма вклада">
+        </div>
+        <div class="form-group">
+          <label>Срок (месяцев)</label>
+          <input type="number" id="dc-term" value="12" min="1" max="120" placeholder="Срок">
+        </div>
+        <div class="form-group">
+          <label>Ставка (% годовых)</label>
+          <input type="number" id="dc-rate" value="13" min="0.1" max="50" step="0.1" placeholder="Ставка %">
+        </div>
+        <div class="form-group">
+          <label>Тип начисления</label>
+          <select id="dc-type">
+            <option value="simple">Без капитализации</option>
+            <option value="compound">С ежемесячной капитализацией</option>
+          </select>
+        </div>
+        <button class="calc-btn" style="background:var(--green)" onclick="calcDeposit()">Рассчитать</button>
+        <div class="calc-result" id="dc-result">
+          <div class="cr-row"><span class="cr-lbl">Сумма в конце срока</span><span class="cr-val big" id="dc-final">—</span></div>
+          <div class="cr-row"><span class="cr-lbl">Сумма начального вклада</span><span class="cr-val" id="dc-principal">—</span></div>
+          <div class="cr-row"><span class="cr-lbl">Начисленные проценты</span><span class="cr-val" id="dc-income">—</span></div>
+          <div class="cr-row"><span class="cr-lbl">Эффективная доходность</span><span class="cr-val" id="dc-eff">—</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sources -->
+  <div style="margin-top:12px">
+    <h3 style="font-size:16px;font-weight:700;color:var(--gray-900);margin-bottom:16px">📚 Источники данных</h3>
+    <div class="sources-grid">
+      <div class="src-card"><h4>Финансовые показатели банков</h4><p>Официальные данные НБТ по каждому банку</p><a href="https://nbt.tj/ru/banking_system/nishondihandaho/finance_bank_pokazatel.php" target="_blank">🔗 Перейти к источнику</a></div>
+      <div class="src-card"><h4>Показатели МДО</h4><p>Финансовые показатели микродепозитных организаций</p><a href="https://nbt.tj/ru/banking_system/nishondihandaho/financical_indicators.php" target="_blank">🔗 Перейти к источнику</a></div>
+      <div class="src-card"><h4>Реестр банков</h4><p>Список лицензированных банков Таджикистана</p><a href="https://nbt.tj/ru/banking_system/banks.php" target="_blank">🔗 Перейти к источнику</a></div>
+      <div class="src-card"><h4>Реестр МДО</h4><p>Список зарегистрированных МДО</p><a href="https://nbt.tj/ru/banking_system/tashkilot_amonatii_karzii_khurd.php" target="_blank">🔗 Перейти к источнику</a></div>
+      <div class="src-card"><h4>Курсы коммерческих банков</h4><p>Актуальные обменные курсы НБТ</p><a href="https://nbt.tj/ru/kurs/kurs_kommer_bank.php" target="_blank">🔗 Перейти к источнику</a></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /page-wrap -->
+
+<!-- ====================================================
+     FOOTER
+     ==================================================== -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-logo">
+        <div class="logo-mark">ST</div>
+        <p>Sravni.tj — независимый аналитический ресурс по банковской системе Таджикистана</p>
+      </div>
+      <div class="footer-disclaimer">
+        <strong>⚠️ Информационный характер данных</strong>
+        Все статистические данные, представленные на данном ресурсе, носят исключительно информационный характер и основаны на официальных данных Национального банка Таджикистана (НБТ) и публичной отчётности кредитных организаций. Данные публикуются в аналитических целях и могут не отражать актуальное состояние на момент просмотра. Ставки по кредитам, депозитам и тарифы на услуги являются ориентировочными.<br><br>
+        По возникшим вопросам обращайтесь непосредственно в кредитные организации или в Национальный банк Таджикистана:<br>
+        🌐 <a href="https://nbt.tj" target="_blank">nbt.tj</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Sravni.tj · Данные: nbt.tj</span>
+      <div class="footer-links">
+        <a href="https://nbt.tj" target="_blank">НБТ</a>
+        <a href="https://nbt.tj/ru/banking_system/banks.php" target="_blank">Список банков</a>
+        <a href="https://nbt.tj/ru/kurs/kurs.php" target="_blank">Курсы валют</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ====================================================
+     JAVASCRIPT — DATA + LOGIC
+     ==================================================== -->
+<script>
+/* =====================================================
+   MOCK DATA — замените на API-запросы в будущем
+   Структура готова для подключения к REST API:
+   fetch('/api/banks').then(r=>r.json()).then(renderBanks)
+   ===================================================== */
+
+const BANKS = [
+  { id:1, short:'Амонатбанк', full:'ГСБ РТ "Амонатбанк"', type:'state',
+    assets:12850, loans:7200, liabilities:11430, deposits:9800, reserves:285, equity:1420, net_profit:250,
+    car:16.2, npl:5.1, roa:3.8, roe:18.4, nim:7.2, liq:42, costinc:62,
+    int_income:920, int_expense:310, com_income:180, com_expense:42, opex:540, reserve_charge:285, fx_income:95, other_income:48,
+  },
+  { id:2, short:'Ориёнбанк', full:'ОАО "Ориёнбанк"', type:'state',
+    assets:9640, loans:5800, liabilities:8460, deposits:7100, reserves:210, equity:1180, net_profit:185,
+    car:18.1, npl:6.8, roa:3.2, roe:15.6, nim:6.8, liq:38, costinc:65,
+    int_income:720, int_expense:240, com_income:140, com_expense:32, opex:420, reserve_charge:210, fx_income:72, other_income:35,
+  },
+  { id:3, short:'Банк Эсхата', full:'ОАО "Банк Эсхата"', type:'private',
+    assets:5420, loans:3600, liabilities:4700, deposits:4100, reserves:118, equity:720, net_profit:165,
+    car:19.4, npl:4.2, roa:4.8, roe:22.1, nim:9.1, liq:45, costinc:58,
+    int_income:490, int_expense:145, com_income:95, com_expense:18, opex:280, reserve_charge:118, fx_income:48, other_income:22,
+  },
+  { id:4, short:'Алиф Банк', full:'ОАО "Алиф Банк"', type:'private',
+    assets:3850, loans:2400, liabilities:3270, deposits:2900, reserves:72, equity:580, net_profit:195,
+    car:22.3, npl:3.1, roa:6.2, roe:28.4, nim:11.2, liq:52, costinc:48,
+    int_income:430, int_expense:110, com_income:210, com_expense:28, opex:220, reserve_charge:72, fx_income:65, other_income:30,
+  },
+  { id:5, short:'Хумо Бонк', full:'ЗАО "Хумо Бонк"', type:'private',
+    assets:3120, loans:1980, liabilities:2640, deposits:2400, reserves:60, equity:480, net_profit:168,
+    car:21.8, npl:2.8, roa:5.9, roe:25.6, nim:10.8, liq:55, costinc:45,
+    int_income:380, int_expense:95, com_income:185, com_expense:24, opex:195, reserve_charge:60, fx_income:58, other_income:26,
+  },
+  { id:6, short:'ССБ', full:'ГУП ПЭБТ "Саноатсодиротбонк"', type:'state',
+    assets:2840, loans:1750, liabilities:2420, deposits:2100, reserves:75, equity:420, net_profit:62,
+    car:17.6, npl:7.9, roa:2.8, roe:12.4, nim:6.1, liq:36, costinc:72,
+    int_income:290, int_expense:98, com_income:55, com_expense:12, opex:185, reserve_charge:75, fx_income:32, other_income:14,
+  },
+  { id:7, short:'Спитамен', full:'ЗАО "Спитамен Банк"', type:'private',
+    assets:2310, loans:1480, liabilities:1930, deposits:1750, reserves:62, equity:380, net_profit:82,
+    car:20.4, npl:5.4, roa:4.1, roe:19.8, nim:8.4, liq:44, costinc:60,
+    int_income:245, int_expense:78, com_income:68, com_expense:14, opex:152, reserve_charge:62, fx_income:28, other_income:12,
+  },
+  { id:8, short:'МБТ', full:'ЗАО "МБТ"', type:'private',
+    assets:1980, loans:1240, liabilities:1670, deposits:1520, reserves:48, equity:310, net_profit:80,
+    car:21.2, npl:4.8, roa:4.5, roe:21.2, nim:8.9, liq:46, costinc:57,
+    int_income:210, int_expense:64, com_income:58, com_expense:12, opex:128, reserve_charge:48, fx_income:24, other_income:10,
+  },
+  { id:9, short:'ИКБ', full:'ЗАО "ИКБ Таджикистан"', type:'foreign',
+    assets:1640, loans:980, liabilities:1380, deposits:1280, reserves:38, equity:260, net_profit:72,
+    car:23.1, npl:3.6, roa:5.1, roe:23.8, nim:7.8, liq:50, costinc:55,
+    int_income:175, int_expense:52, com_income:45, com_expense:8, opex:105, reserve_charge:38, fx_income:20, other_income:8,
+  },
+  { id:10, short:'Тавхидбанк', full:'ОАО "Тавхидбанк"', type:'private',
+    assets:1380, loans:820, liabilities:1160, deposits:1050, reserves:35, equity:220, net_profit:28,
+    car:19.8, npl:8.2, roa:2.4, roe:11.8, nim:6.4, liq:34, costinc:75,
+    int_income:142, int_expense:48, com_income:32, com_expense:8, opex:98, reserve_charge:35, fx_income:15, other_income:6,
+  },
+  { id:11, short:'Актив Бонк', full:'ЗАО "Актив Бонк"', type:'private',
+    assets:1120, loans:680, liabilities:935, deposits:860, reserves:28, equity:185, net_profit:38,
+    car:20.6, npl:5.8, roa:3.9, roe:18.2, nim:7.9, liq:41, costinc:63,
+    int_income:118, int_expense:38, com_income:28, com_expense:6, opex:82, reserve_charge:28, fx_income:14, other_income:5,
+  },
+  { id:12, short:'БРТ', full:'ЗАО "Бонки рушди Точикистон"', type:'state',
+    assets:960, loans:580, liabilities:802, deposits:740, reserves:25, equity:158, net_profit:18,
+    car:18.9, npl:9.1, roa:2.1, roe:9.8, nim:5.8, liq:31, costinc:78,
+    int_income:98, int_expense:34, com_income:22, com_expense:5, opex:72, reserve_charge:25, fx_income:10, other_income:4,
+  },
+  { id:13, short:'ДСБ', full:'ЗАО "Душанбе Сити Банк"', type:'private',
+    assets:840, loans:510, liabilities:700, deposits:640, reserves:20, equity:140, net_profit:32,
+    car:21.4, npl:4.4, roa:4.2, roe:19.6, nim:8.6, liq:48, costinc:59,
+    int_income:88, int_expense:28, com_income:24, com_expense:5, opex:65, reserve_charge:20, fx_income:12, other_income:4,
+  },
+  { id:14, short:'Арванд', full:'ЗАО Банк "Арванд"', type:'foreign',
+    assets:720, loans:420, liabilities:595, deposits:545, reserves:16, equity:125, net_profit:34,
+    car:24.2, npl:3.0, roa:5.4, roe:25.2, nim:9.4, liq:56, costinc:52,
+    int_income:76, int_expense:22, com_income:20, com_expense:4, opex:52, reserve_charge:16, fx_income:10, other_income:3,
+  },
+  { id:15, short:'Фридом', full:'ЗАО "Фридом Банк"', type:'foreign',
+    assets:620, loans:360, liabilities:512, deposits:470, reserves:12, equity:108, net_profit:36,
+    car:25.8, npl:2.4, roa:6.1, roe:27.8, nim:10.2, liq:58, costinc:49,
+    int_income:68, int_expense:18, com_income:22, com_expense:4, opex:44, reserve_charge:12, fx_income:10, other_income:3,
+  },
+  { id:16, short:'Васл Бонк', full:'ЗАО "Васл Бонк"', type:'private',
+    assets:540, loans:320, liabilities:448, deposits:410, reserves:12, equity:92, net_profit:18,
+    car:22.1, npl:5.2, roa:3.6, roe:16.8, nim:7.4, liq:43, costinc:64,
+    int_income:58, int_expense:18, com_income:14, com_expense:3, opex:42, reserve_charge:12, fx_income:7, other_income:2,
+  },
+  { id:17, short:'Имон', full:'ЗАО Банк "Имон Интернешнл"', type:'private',
+    assets:480, loans:290, liabilities:398, deposits:365, reserves:10, equity:82, net_profit:20,
+    car:23.4, npl:4.0, roa:4.8, roe:22.4, nim:9.8, liq:47, costinc:56,
+    int_income:52, int_expense:15, com_income:12, com_expense:2, opex:36, reserve_charge:10, fx_income:6, other_income:2,
+  },
+  { id:18, short:'КоммерцТДЖ', full:'ОАО "КоммерцбанкТДЖ"', type:'private',
+    assets:420, loans:245, liabilities:348, deposits:318, reserves:9, equity:72, net_profit:12,
+    car:20.8, npl:6.1, roa:3.2, roe:15.2, nim:7.0, liq:38, costinc:68,
+    int_income:44, int_expense:14, com_income:10, com_expense:2, opex:32, reserve_charge:9, fx_income:5, other_income:2,
+  },
+  { id:19, short:'Тиджорат', full:'Филиал "Тиджорат" ИРИ', type:'foreign',
+    assets:350, loans:195, liabilities:288, deposits:265, reserves:7, equity:62, net_profit:22,
+    car:28.4, npl:1.8, roa:6.8, roe:30.2, nim:11.8, liq:65, costinc:44,
+    int_income:38, int_expense:10, com_income:8, com_expense:1, opex:26, reserve_charge:7, fx_income:5, other_income:2,
+  },
+];
+
+const MDO = [
+  { id:1, name:'МДО "ФИНКА"', assets:980, loans:840, deposits:620, reserves:38, equity:145, net_profit:80, clients:42000, avg_loan:20000, roa:8.2, roe:38.4, nim:18.2, npl:3.8, int_income:180, int_expense:48, com_income:28, opex:92, reserve_charge:38 },
+  { id:2, name:'МДО "ФУРУЗ"', assets:720, loans:615, deposits:480, reserves:28, equity:108, net_profit:55, clients:28000, avg_loan:22000, roa:7.6, roe:35.2, nim:17.8, npl:4.2, int_income:138, int_expense:36, com_income:20, opex:72, reserve_charge:28 },
+  { id:3, name:'МДО "Оксус"', assets:580, loans:495, deposits:385, reserves:22, equity:88, net_profit:41, clients:22000, avg_loan:22500, roa:7.1, roe:32.8, nim:16.9, npl:4.8, int_income:112, int_expense:28, com_income:15, opex:62, reserve_charge:22 },
+  { id:4, name:'МДО "Матин"', assets:420, loans:358, deposits:280, reserves:16, equity:65, net_profit:29, clients:16000, avg_loan:22400, roa:6.8, roe:30.4, nim:16.4, npl:5.2, int_income:82, int_expense:20, com_income:11, opex:48, reserve_charge:16 },
+  { id:5, name:'МДО "ЛОЛС Молия"', assets:340, loans:290, deposits:225, reserves:13, equity:52, net_profit:21, clients:13000, avg_loan:22300, roa:6.2, roe:28.2, nim:15.8, npl:5.8, int_income:65, int_expense:16, com_income:9, opex:40, reserve_charge:13 },
+  { id:6, name:'МДО "Хуморо"', assets:285, loans:240, deposits:188, reserves:11, equity:44, net_profit:16, clients:11000, avg_loan:21800, roa:5.8, roe:26.4, nim:15.2, npl:6.2, int_income:55, int_expense:14, com_income:7, opex:36, reserve_charge:11 },
+  { id:7, name:'МДО "Борзу"', assets:220, loans:185, deposits:145, reserves:8, equity:34, net_profit:12, clients:8500, avg_loan:21800, roa:5.4, roe:24.8, nim:14.8, npl:6.8, int_income:42, int_expense:10, com_income:5, opex:28, reserve_charge:8 },
+  { id:8, name:'МДО "Сомон"', assets:165, loans:138, deposits:108, reserves:6, equity:26, net_profit:8, clients:6200, avg_loan:22300, roa:5.0, roe:22.4, nim:14.2, npl:7.4, int_income:32, int_expense:8, com_income:4, opex:22, reserve_charge:6 },
+  { id:9, name:'МДО "Зарафшон"', assets:125, loans:104, deposits:82, reserves:5, equity:20, net_profit:6, clients:4800, avg_loan:21700, roa:4.6, roe:20.8, nim:13.8, npl:8.0, int_income:24, int_expense:6, com_income:3, opex:16, reserve_charge:5 },
+];
+
+const CREDITS_DATA = [
+  { bank:'Амонатбанк', consumer:'19–24%', mortgage:'14–18%', business:'16–22%', agro:'11–16%', micro:'24–32%', min_loan:'500 сом.' },
+  { bank:'Ориёнбанк', consumer:'21–26%', mortgage:'15–19%', business:'17–23%', agro:'12–17%', micro:'26–34%', min_loan:'500 сом.' },
+  { bank:'Банк Эсхата', consumer:'20–25%', mortgage:'14–18%', business:'16–22%', agro:'11–16%', micro:'25–33%', min_loan:'500 сом.' },
+  { bank:'Алиф Банк', consumer:'24–30%', mortgage:'16–20%', business:'18–24%', agro:'—', micro:'28–36%', min_loan:'100 сом.' },
+  { bank:'Хумо Бонк', consumer:'22–28%', mortgage:'15–19%', business:'17–23%', agro:'—', micro:'26–34%', min_loan:'100 сом.' },
+  { bank:'ССБ', consumer:'18–22%', mortgage:'13–16%', business:'15–20%', agro:'10–14%', micro:'22–30%', min_loan:'1 000 сом.' },
+  { bank:'Спитамен', consumer:'21–27%', mortgage:'15–19%', business:'17–23%', agro:'12–16%', micro:'26–34%', min_loan:'500 сом.' },
+  { bank:'МБТ', consumer:'20–26%', mortgage:'14–18%', business:'16–22%', agro:'11–15%', micro:'25–32%', min_loan:'500 сом.' },
+];
+
+const DEPOSITS_DATA = [
+  { bank:'Амонатбанк', m3:'8%', m6:'10%', m12:'12%', usd:'4%', min:'100 сом.', online:'✅' },
+  { bank:'Ориёнбанк', m3:'7%', m6:'9%', m12:'11%', usd:'3.5%', min:'200 сом.', online:'✅' },
+  { bank:'Банк Эсхата', m3:'9%', m6:'11%', m12:'13%', usd:'4.5%', min:'100 сом.', online:'✅' },
+  { bank:'Алиф Банк', m3:'10%', m6:'12%', m12:'14%', usd:'5%', min:'50 сом.', online:'✅' },
+  { bank:'Хумо Бонк', m3:'9.5%', m6:'11.5%', m12:'13.5%', usd:'4.8%', min:'50 сом.', online:'✅' },
+  { bank:'ССБ', m3:'7.5%', m6:'9.5%', m12:'11.5%', usd:'3.8%', min:'500 сом.', online:'❌' },
+  { bank:'Спитамен', m3:'8.5%', m6:'10.5%', m12:'12.5%', usd:'4.2%', min:'100 сом.', online:'✅' },
+  { bank:'МБТ', m3:'8%', m6:'10%', m12:'12%', usd:'4%', min:'200 сом.', online:'✅' },
+];
+
+const FX_DATA = [
+  { bank:'НБТ (офиц.)', usd_b:10.92, usd_s:10.92, eur_b:11.85, eur_s:11.85, rub_b:11.80, rub_s:11.80 },
+  { bank:'Амонатбанк', usd_b:10.85, usd_s:10.98, eur_b:11.78, eur_s:11.96, rub_b:11.72, rub_s:11.88 },
+  { bank:'Ориёнбанк', usd_b:10.83, usd_s:10.99, eur_b:11.76, eur_s:11.98, rub_b:11.70, rub_s:11.90 },
+  { bank:'Банк Эсхата', usd_b:10.86, usd_s:10.97, eur_b:11.79, eur_s:11.95, rub_b:11.73, rub_s:11.87 },
+  { bank:'Алиф Банк', usd_b:10.88, usd_s:10.95, eur_b:11.81, eur_s:11.93, rub_b:11.75, rub_s:11.85 },
+  { bank:'Хумо Бонк', usd_b:10.87, usd_s:10.96, eur_b:11.80, eur_s:11.94, rub_b:11.74, rub_s:11.86 },
+  { bank:'ССБ', usd_b:10.82, usd_s:11.00, eur_b:11.75, eur_s:11.99, rub_b:11.69, rub_s:11.91 },
+  { bank:'Спитамен', usd_b:10.84, usd_s:10.98, eur_b:11.77, eur_s:11.96, rub_b:11.71, rub_s:11.89 },
+  { bank:'МБТ', usd_b:10.86, usd_s:10.97, eur_b:11.79, eur_s:11.95, rub_b:11.73, rub_s:11.87 },
+];
+
+/* =====================================================
+   HELPERS
+   ===================================================== */
+const fmt = n => n ? n.toLocaleString('ru-RU') : '—';
+const fmtF = (n, d=1) => n != null ? n.toFixed(d) : '—';
+
+function typeChip(t) {
+  if(t==='state') return '<span class="chip chip-state">Гос.</span>';
+  if(t==='private') return '<span class="chip chip-priv">Частный</span>';
+  return '<span class="chip chip-for">Иностранный</span>';
+}
+
+function evalChip(car, npl, roa) {
+  const s = (car/12)*0.3 + (1 - npl/15)*0.35 + (roa/7)*0.35;
+  if(s>0.75) return '<span class="chip chip-good">✅ Хорошо</span>';
+  if(s>0.5)  return '<span class="chip chip-ok">⚠️ Удовл.</span>';
+  return '<span class="chip chip-weak">❌ Слабо</span>';
+}
+
+function rankBadge(i) {
+  const c = i===0?'rb1':i===1?'rb2':i===2?'rb3':'rbn';
+  return `<span class="rbadge ${c}">${i+1}</span>`;
+}
+
+function inlineBar(val, max, cls='blue') {
+  const pct = Math.min(100, (val/max)*100).toFixed(1);
+  return `<div class="bar-inline">
+    <div class="bi-bar"><div class="bi-fill ${cls}" style="width:${pct}%"></div></div>
+    <div class="bi-val">${fmt(val)}</div>
+  </div>`;
+}
+
+const totalAssets = BANKS.reduce((a,b)=>a+b.assets,0);
+const sorted = [...BANKS].sort((a,b)=>b.assets-a.assets);
+
+/* =====================================================
+   RENDER BANKS — BALANCE
+   ===================================================== */
+function renderBankBalance() {
+  const el = document.getElementById('tbl-banks-balance');
+  el.innerHTML = sorted.map((b,i) => `<tr>
+    <td>${rankBadge(i)}</td>
+    <td><strong>${b.short}</strong><br><span style="font-size:11px;color:#9ca3af">${b.full}</span></td>
+    <td>${typeChip(b.type)}</td>
+    <td class="mono td-right">${inlineBar(b.assets, sorted[0].assets)}</td>
+    <td class="mono td-right">${fmt(b.loans)}</td>
+    <td class="mono td-right">${fmt(b.liabilities)}</td>
+    <td class="mono td-right">${fmt(b.deposits)}</td>
+    <td class="mono td-right">${fmt(b.reserves)}</td>
+    <td class="mono td-right">${fmt(b.equity)}</td>
+    <td class="mono td-right" style="font-weight:700;color:#059669">${fmt(b.net_profit)}</td>
+    <td>${inlineBar(b.assets, totalAssets, 'amber')}</td>
+  </tr>`).join('');
+}
+
+/* =====================================================
+   RENDER BANKS — EFFICIENCY
+   ===================================================== */
+function renderBankEfficiency() {
+  const el = document.getElementById('tbl-banks-efficiency');
+  const bySorted = [...BANKS].sort((a,b)=>b.car-a.car);
+  el.innerHTML = bySorted.map((b,i) => `<tr>
+    <td>${rankBadge(i)}</td>
+    <td><strong>${b.short}</strong></td>
+    <td class="mono td-right ${b.car>=12?'':'compare-worst'}" style="color:${b.car>=12?'#059669':'#dc2626'};font-weight:700">${fmtF(b.car)}%</td>
+    <td class="mono td-right" style="color:${b.npl<=5?'#059669':b.npl<=8?'#d97706':'#dc2626'};font-weight:700">${fmtF(b.npl)}%</td>
+    <td class="mono td-right" style="color:${b.roa>=4?'#059669':'#374151'};font-weight:700">${fmtF(b.roa)}%</td>
+    <td class="mono td-right">${fmtF(b.roe)}%</td>
+    <td class="mono td-right">${fmtF(b.nim)}%</td>
+    <td class="mono td-right">${b.liq}%</td>
+    <td class="mono td-right">${b.costinc}%</td>
+    <td>${evalChip(b.car, b.npl, b.roa)}</td>
+  </tr>`).join('');
+}
+
+/* =====================================================
+   RENDER BANKS — OSS / FSS
+   ===================================================== */
+function renderBankAnalytics() {
+  const el = document.getElementById('tbl-banks-oss');
+  el.innerHTML = BANKS.map((b,i) => {
+    // OSS = (проц.доход + комис.доход) / (опер.расходы + проц.расходы + комис.расходы + резервы)
+    const oss = (b.int_income + b.com_income) / (b.opex + b.int_expense + b.com_expense + b.reserve_charge);
+    // FSS = (проц.доход + комис.доход + fx) / (опер.расходы + проц.расходы + комис.расходы + резервы + инфл.корр 8%)
+    const inflCorr = b.equity * 0.08;
+    const fss = (b.int_income + b.com_income + b.fx_income) / (b.opex + b.int_expense + b.com_expense + b.reserve_charge + inflCorr);
+    const ossColor = oss>=1?'#059669':oss>=0.9?'#d97706':'#dc2626';
+    const fssColor = fss>=1?'#059669':fss>=0.85?'#d97706':'#dc2626';
+    const status = (oss>=1&&fss>=1)?'<span class="chip chip-good">Самодост.</span>':
+                   (oss>=0.9)?'<span class="chip chip-ok">Частично</span>':
+                   '<span class="chip chip-weak">Субсидируется</span>';
+    return `<tr>
+      <td>${rankBadge(i)}</td>
+      <td><strong>${b.short}</strong></td>
+      <td class="mono td-right">${fmt(b.int_income)}</td>
+      <td class="mono td-right">${fmt(b.com_income)}</td>
+      <td class="mono td-right">${fmt(b.fx_income)}</td>
+      <td class="mono td-right">${fmt(b.opex)}</td>
+      <td class="mono td-right">${fmt(b.int_expense)}</td>
+      <td class="mono td-right">${fmt(b.reserve_charge)}</td>
+      <td class="mono td-right" style="color:${ossColor};font-weight:700">${fmtF(oss,2)}</td>
+      <td class="mono td-right" style="color:${fssColor};font-weight:700">${fmtF(fss,2)}</td>
+      <td>${status}</td>
+    </tr>`;
+  }).join('');
+}
+
+/* =====================================================
+   RENDER BANKS — INCOME STRUCTURE
+   ===================================================== */
+function renderBankIncome() {
+  const el = document.getElementById('tbl-banks-income');
+  el.innerHTML = BANKS.map((b,i) => {
+    const total = b.int_income + b.com_income + b.fx_income + (b.other_income||0);
+    const pct = total ? ((b.int_income/total)*100).toFixed(1) : '—';
+    return `<tr>
+      <td>${rankBadge(i)}</td>
+      <td><strong>${b.short}</strong></td>
+      <td class="mono td-right">${fmt(b.int_income)}</td>
+      <td class="mono td-right">${fmt(b.com_income)}</td>
+      <td class="mono td-right">${fmt(b.fx_income)}</td>
+      <td class="mono td-right">${fmt(b.other_income||0)}</td>
+      <td class="mono td-right" style="font-weight:700">${fmt(total)}</td>
+      <td class="mono td-right">${pct}%</td>
+    </tr>`;
+  }).join('');
+}
+
+/* =====================================================
+   RENDER OPU
+   ===================================================== */
+function renderOPU() {
+  const el = document.getElementById('tbl-opu');
+  el.innerHTML = BANKS.map((b,i) => `<tr>
+    <td>${rankBadge(i)}</td>
+    <td><strong>${b.short}</strong><br><span style="font-size:11px;color:#9ca3af">${typeChip(b.type)}</span></td>
+    <td class="mono td-right">${fmt(b.int_income)}</td>
+    <td class="mono td-right" style="color:#dc2626">${fmt(b.int_expense)}</td>
+    <td class="mono td-right">${fmt(b.com_income)}</td>
+    <td class="mono td-right" style="color:#dc2626">${fmt(b.com_expense)}</td>
+    <td class="mono td-right" style="color:#dc2626">${fmt(b.opex)}</td>
+    <td class="mono td-right" style="color:#d97706">${fmt(b.reserve_charge)}</td>
+    <td class="mono td-right" style="font-weight:800;color:#1a56db;font-size:14px">${fmt(b.net_profit)}</td>
+  </tr>`).join('');
+}
+
+/* =====================================================
+   RENDER MDO
+   ===================================================== */
+function renderMDOBalance() {
+  const el = document.getElementById('tbl-mdo-balance');
+  const ms = [...MDO].sort((a,b)=>b.assets-a.assets);
+  el.innerHTML = ms.map((m,i) => `<tr>
+    <td>${rankBadge(i)}</td>
+    <td><strong>${m.name}</strong></td>
+    <td class="mono td-right">${inlineBar(m.assets, ms[0].assets)}</td>
+    <td class="mono td-right">${fmt(m.loans)}</td>
+    <td class="mono td-right">${fmt(m.deposits)}</td>
+    <td class="mono td-right">${fmt(m.reserves)}</td>
+    <td class="mono td-right">${fmt(m.equity)}</td>
+    <td class="mono td-right" style="font-weight:700;color:#059669">${fmt(m.net_profit)}</td>
+    <td class="mono td-right">${m.clients.toLocaleString('ru')}</td>
+    <td class="mono td-right">${m.avg_loan.toLocaleString('ru')}</td>
+  </tr>`).join('');
+}
+
+function renderMDOOPU() {
+  const el = document.getElementById('tbl-mdo-opu');
+  el.innerHTML = MDO.map((m,i) => `<tr>
+    <td>${rankBadge(i)}</td>
+    <td><strong>${m.name}</strong></td>
+    <td class="mono td-right">${fmt(m.int_income)}</td>
+    <td class="mono td-right" style="color:#dc2626">${fmt(m.int_expense)}</td>
+    <td class="mono td-right">${fmt(m.com_income)}</td>
+    <td class="mono td-right" style="color:#dc2626">${fmt(m.opex)}</td>
+    <td class="mono td-right" style="color:#d97706">${fmt(m.reserve_charge)}</td>
+    <td class="mono td-right" style="font-weight:800;color:#1a56db;font-size:14px">${fmt(m.net_profit)}</td>
+  </tr>`).join('');
+}
+
+function renderMDOAnalytics() {
+  const el = document.getElementById('tbl-mdo-analytics');
+  el.innerHTML = MDO.map((m,i) => {
+    const oss = (m.int_income + m.com_income) / (m.opex + m.int_expense + m.reserve_charge);
+    const inflCorr = m.equity * 0.08;
+    const fss = (m.int_income + m.com_income) / (m.opex + m.int_expense + m.reserve_charge + inflCorr);
+    return `<tr>
+      <td>${rankBadge(i)}</td>
+      <td><strong>${m.name}</strong></td>
+      <td class="mono td-right" style="color:#059669;font-weight:700">${fmtF(m.roa)}%</td>
+      <td class="mono td-right" style="font-weight:700">${fmtF(m.roe)}%</td>
+      <td class="mono td-right" style="color:#1a56db;font-weight:700">${fmtF(m.nim)}%</td>
+      <td class="mono td-right" style="color:${m.npl<=5?'#059669':'#d97706'}">${fmtF(m.npl)}%</td>
+      <td class="mono td-right" style="color:${oss>=1?'#059669':'#dc2626'};font-weight:700">${fmtF(oss,2)}</td>
+      <td class="mono td-right" style="color:${fss>=1?'#059669':'#d97706'};font-weight:700">${fmtF(fss,2)}</td>
+      <td>${evalChip(18, m.npl, m.roa)}</td>
+    </tr>`;
+  }).join('');
+}
+
+/* =====================================================
+   RENDER PRODUCTS
+   ===================================================== */
+function renderCredits() {
+  const el = document.getElementById('tbl-credits');
+  el.innerHTML = CREDITS_DATA.map(r => `<tr>
+    <td><strong>${r.bank}</strong></td>
+    <td class="mono td-center">${r.consumer}</td>
+    <td class="mono td-center">${r.mortgage}</td>
+    <td class="mono td-center">${r.business}</td>
+    <td class="mono td-center">${r.agro}</td>
+    <td class="mono td-center">${r.micro}</td>
+    <td class="mono td-center">${r.min_loan}</td>
+  </tr>`).join('');
+}
+
+function renderDeposits() {
+  const el = document.getElementById('tbl-deposits');
+  el.innerHTML = DEPOSITS_DATA.map(r => `<tr>
+    <td><strong>${r.bank}</strong></td>
+    <td class="mono td-center">${r.m3}</td>
+    <td class="mono td-center">${r.m6}</td>
+    <td class="mono td-center" style="font-weight:700;color:#059669">${r.m12}</td>
+    <td class="mono td-center">${r.usd}</td>
+    <td class="mono td-center">${r.min}</td>
+    <td class="td-center">${r.online}</td>
+  </tr>`).join('');
+}
+
+function prodCard(icon, title, sub, rows) {
+  return `<div class="prod-card">
+    <div class="prod-head"><div class="ph-icon">${icon}</div><h4>${title}</h4><p>${sub}</p></div>
+    <div class="prod-body">${rows.map(r=>`<div class="prod-row"><span class="pr-lbl">${r[0]}</span><span class="pr-val ${r[2]||''}">${r[1]}</span></div>`).join('')}</div>
+  </div>`;
+}
+
+function renderCards() {
+  document.getElementById('prod-cards-grid').innerHTML = [
+    prodCard('💳','Алиф Банк','Humo / Visa / Mastercard',[
+      ['Годовое обслуживание','Бесплатно','go'],['Cashback','1–5%','hi'],['Дневной лимит','100 000 сом.'],['SMS-оповещение','Бесплатно','go'],['Онлайн-выпуск','✅']
+    ]),
+    prodCard('💳','Хумо Бонк','Humo / Visa',[
+      ['Годовое обслуживание','Бесплатно','go'],['Cashback','1–3%','hi'],['Дневной лимит','80 000 сом.'],['SMS-оповещение','Бесплатно','go'],['Онлайн-выпуск','✅']
+    ]),
+    prodCard('💳','Амонатбанк','Корти Милли / Visa',[
+      ['Годовое обслуживание','Бесплатно','go'],['Cashback','0–2%'],['Дневной лимит','50 000 сом.'],['SMS-оповещение','6 сом/мес'],['Онлайн-выпуск','✅']
+    ]),
+    prodCard('💳','Банк Эсхата','Visa / Mastercard',[
+      ['Годовое обслуживание','18 сом/мес'],['Cashback','0.5–1%'],['Дневной лимит','60 000 сом.'],['SMS-оповещение','5 сом/мес'],['Онлайн-выпуск','✅']
+    ]),
+    prodCard('💳','Ориёнбанк','Visa / UnionPay',[
+      ['Годовое обслуживание','15 сом/мес'],['Cashback','0%'],['Дневной лимит','50 000 сом.'],['SMS-оповещение','5 сом/мес'],['Онлайн-выпуск','✅']
+    ]),
+    prodCard('💳','Спитамен Банк','Visa / Humo',[
+      ['Годовое обслуживание','12 сом/мес'],['Cashback','0.5%'],['Дневной лимит','40 000 сом.'],['SMS-оповещение','4 сом/мес'],['Онлайн-выпуск','✅']
+    ]),
+  ].join('');
+}
+
+function renderRKO() {
+  document.getElementById('prod-rko-grid').innerHTML = [
+    prodCard('🏛️','Алиф Банк','Расчётно-кассовое обслуживание',[
+      ['Открытие счёта','Бесплатно','go'],['Ежемесячное обслуживание','Бесплатно','go'],['Перевод (TJS)','Бесплатно','go'],['SWIFT-перевод','15 USD'],['Снятие наличных','0.25%']
+    ]),
+    prodCard('🏛️','Хумо Бонк','Расчётно-кассовое обслуживание',[
+      ['Открытие счёта','Бесплатно','go'],['Ежемесячное обслуживание','Бесплатно','go'],['Перевод (TJS)','Бесплатно','go'],['SWIFT-перевод','18 USD'],['Снятие наличных','0.25%']
+    ]),
+    prodCard('🏛️','Амонатбанк','Расчётно-кассовое обслуживание',[
+      ['Открытие счёта','Бесплатно','go'],['Ежемесячное обслуживание','30 сом.'],['Перевод (TJS)','0.1%'],['SWIFT-перевод','20 USD'],['Снятие наличных','0.3%']
+    ]),
+    prodCard('🏛️','ССБ','Расчётно-кассовое обслуживание',[
+      ['Открытие счёта','100 сом.'],['Ежемесячное обслуживание','50 сом.'],['Перевод (TJS)','0.2%'],['SWIFT-перевод','30 USD'],['Снятие наличных','0.5%']
+    ]),
+  ].join('');
+}
+
+function renderSalary() {
+  document.getElementById('prod-salary-grid').innerHTML = [
+    prodCard('👔','Амонатбанк','Зарплатный проект',[
+      ['Оформление карт','Бесплатно'],['Перевод з/платы','0.05%'],['Доп. карты для сотрудников','Бесплатно'],['Лимит перечисления','Без ограничений'],['Сроки зачисления','В день перечисления']
+    ]),
+    prodCard('👔','Алиф Банк','Зарплатный проект',[
+      ['Оформление карт','Бесплатно'],['Перевод з/платы','Бесплатно','go'],['Доп. карты для сотрудников','Бесплатно'],['Лимит перечисления','Без ограничений'],['Сроки зачисления','Мгновенно','go']
+    ]),
+    prodCard('👔','Ориёнбанк','Зарплатный проект',[
+      ['Оформление карт','Бесплатно'],['Перевод з/платы','0.07%'],['Доп. карты для сотрудников','Бесплатно'],['Лимит перечисления','Без ограничений'],['Сроки зачисления','В день перечисления']
+    ]),
+    prodCard('👔','Спитамен Банк','Зарплатный проект',[
+      ['Оформление карт','Бесплатно'],['Перевод з/платы','0.06%'],['Доп. карты для сотрудников','Бесплатно'],['Лимит перечисления','Без ограничений'],['Сроки зачисления','В день перечисления']
+    ]),
+  ].join('');
+}
+
+function renderAcquiring() {
+  document.getElementById('prod-acquiring-grid').innerHTML = [
+    prodCard('📟','Амонатбанк','Торговый эквайринг',[
+      ['Ставка комиссии','1.5–2.0%'],['Стоимость терминала','Аренда/продажа'],['Срок подключения','5–7 дней'],['Поддержка карт','Visa, Humo, UnionPay'],['Расчётный период','1 день','go']
+    ]),
+    prodCard('📟','Алиф Банк','Торговый эквайринг',[
+      ['Ставка комиссии','1.2–1.8%','go'],['Стоимость терминала','Бесплатно','go'],['Срок подключения','2–3 дня','go'],['Поддержка карт','Visa, Humo, Mastercard'],['Расчётный период','1 день','go']
+    ]),
+    prodCard('📟','Хумо Бонк','Торговый эквайринг',[
+      ['Ставка комиссии','1.3–1.9%','go'],['Стоимость терминала','Аренда'],['Срок подключения','3–5 дней'],['Поддержка карт','Visa, Humo'],['Расчётный период','1 день']
+    ]),
+    prodCard('📟','Ориёнбанк','Торговый эквайринг',[
+      ['Ставка комиссии','1.5–2.2%'],['Стоимость терминала','Аренда/продажа'],['Срок подключения','5–7 дней'],['Поддержка карт','Visa, Humo, UnionPay'],['Расчётный период','2 дня']
+    ]),
+  ].join('');
+}
+
+/* =====================================================
+   RENDER FX
+   ===================================================== */
+function renderFX() {
+  // NBT official rate cards
+  const currencies = [
+    { pair:'USD/TJS', buy:10.92, sell:10.92, change:'+0.02', flag:'🇺🇸' },
+    { pair:'EUR/TJS', buy:11.85, sell:11.85, change:'+0.05', flag:'🇪🇺' },
+    { pair:'RUB/TJS', buy:11.80, sell:11.80, change:'-0.03', flag:'🇷🇺', note:'за 100 руб.' },
+    { pair:'GBP/TJS', buy:13.92, sell:13.92, change:'+0.08', flag:'🇬🇧' },
+    { pair:'CNY/TJS', buy:1.51, sell:1.51, change:'+0.01', flag:'🇨🇳' },
+    { pair:'KZT/TJS', buy:2.18, sell:2.18, change:'0.00', flag:'🇰🇿', note:'за 100 тнг.' },
+  ];
+  const grid = document.getElementById('fx-nbt-cards');
+  grid.innerHTML = currencies.map(c => `
+    <div class="fx-card">
+      <div class="fx-pair">${c.flag} ${c.pair}</div>
+      <div class="fx-rate">${c.buy.toFixed(2)}</div>
+      <div class="fx-change" style="color:${c.change.startsWith('+')?'#059669':c.change===('0.00')?'#6b7280':'#dc2626'}">${c.change.startsWith('+')?'▲':'▼'} ${Math.abs(parseFloat(c.change)).toFixed(2)}</div>
+      <div class="fx-date">${c.note||'Официальный курс НБТ'}</div>
+    </div>`).join('');
+
+  const el = document.getElementById('tbl-fx');
+  el.innerHTML = FX_DATA.map((r,i) => `<tr ${i===0?'style="background:#eff6ff;font-weight:700"':''}>
+    <td><strong>${r.bank}</strong></td>
+    <td class="mono td-center" style="color:#059669">${r.usd_b.toFixed(2)}</td>
+    <td class="mono td-center" style="color:#dc2626">${r.usd_s.toFixed(2)}</td>
+    <td class="mono td-center" style="color:#059669">${r.eur_b.toFixed(2)}</td>
+    <td class="mono td-center" style="color:#dc2626">${r.eur_s.toFixed(2)}</td>
+    <td class="mono td-center" style="color:#059669">${r.rub_b.toFixed(2)}</td>
+    <td class="mono td-center" style="color:#dc2626">${r.rub_s.toFixed(2)}</td>
+  </tr>`).join('');
+}
+
+/* =====================================================
+   RENDER HOME TOP-5
+   ===================================================== */
+function renderHomeTop5() {
+  const el = document.getElementById('home-top5');
+  el.innerHTML = sorted.slice(0,5).map((b,i) => `<tr>
+    <td>${rankBadge(i)}</td>
+    <td><strong>${b.short}</strong></td>
+    <td>${typeChip(b.type)}</td>
+    <td class="mono td-right">${inlineBar(b.assets, sorted[0].assets)}</td>
+    <td class="mono td-center" style="color:#059669;font-weight:700">${fmtF(b.roa)}%</td>
+    <td class="mono td-center" style="font-weight:700">${fmtF(b.car)}%</td>
+    <td>${evalChip(b.car, b.npl, b.roa)}</td>
+  </tr>`).join('');
+}
+
+/* =====================================================
+   CALCULATORS
+   ===================================================== */
+function calcCredit() {
+  const P = parseFloat(document.getElementById('cc-amount').value);
+  const n = parseInt(document.getElementById('cc-term').value);
+  const r = parseFloat(document.getElementById('cc-rate').value) / 100 / 12;
+  if(!P||!n||!r) return;
+  const monthly = (r===0) ? P/n : P * r * Math.pow(1+r,n) / (Math.pow(1+r,n)-1);
+  const total = monthly * n;
+  const overpay = total - P;
+  const eff = ((Math.pow(monthly*n/P, 12/n))-1)*100;
+  document.getElementById('cc-monthly').textContent = fmt(Math.round(monthly)) + ' сом.';
+  document.getElementById('cc-total').textContent = fmt(Math.round(total)) + ' сом.';
+  document.getElementById('cc-overpay').textContent = fmt(Math.round(overpay)) + ' сом.';
+  document.getElementById('cc-eff').textContent = fmtF(eff,1) + '% годовых';
+  document.getElementById('cc-result').classList.add('show');
+}
+
+function calcDeposit() {
+  const P = parseFloat(document.getElementById('dc-amount').value);
+  const n = parseInt(document.getElementById('dc-term').value);
+  const r = parseFloat(document.getElementById('dc-rate').value) / 100;
+  const type = document.getElementById('dc-type').value;
+  if(!P||!n||!r) return;
+  let final, income;
+  if(type==='compound') {
+    final = P * Math.pow(1 + r/12, n);
+  } else {
+    final = P * (1 + r * n/12);
+  }
+  income = final - P;
+  const eff = (Math.pow(final/P, 12/n)-1)*100;
+  document.getElementById('dc-final').textContent = fmt(Math.round(final)) + ' сом.';
+  document.getElementById('dc-principal').textContent = fmt(Math.round(P)) + ' сом.';
+  document.getElementById('dc-income').textContent = fmt(Math.round(income)) + ' сом.';
+  document.getElementById('dc-eff').textContent = fmtF(eff,2) + '% годовых';
+  document.getElementById('dc-result').classList.add('show');
+}
+
+/* =====================================================
+   CHARTS
+   ===================================================== */
+const BLUE = '#1a56db'; const BLUE_L = '#3b82f6'; const GREEN = '#059669'; const AMBER = '#d97706'; const RED = '#dc2626';
+const PALETTE = ['#1a56db','#059669','#d97706','#0891b2','#7c3aed','#dc2626','#0f766e','#ea580c','#ca8a04','#15803d'];
+
+let charts = {};
+function mkChart(id, cfg) {
+  if(charts[id]) charts[id].destroy();
+  const el = document.getElementById(id);
+  if(!el) return;
+  charts[id] = new Chart(el, cfg);
+}
+
+function buildCharts() {
+  // HOME - assets bar
+  const top8 = sorted.slice(0,8);
+  mkChart('ch-home-assets', { type:'bar', data:{
+    labels: top8.map(b=>b.short),
+    datasets:[{ label:'Активы (млн сом.)', data: top8.map(b=>b.assets),
+      backgroundColor: top8.map((_,i)=>i===0?AMBER:i===1?BLUE:BLUE_L),
+      borderRadius:6, borderSkipped:false }]
+  }, options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}},
+    scales:{ y:{ beginAtZero:true, grid:{color:'#f3f4f6'} }, x:{grid:{display:false}} } }});
+
+  // HOME - pie ownership
+  const state = BANKS.filter(b=>b.type==='state').reduce((a,b)=>a+b.assets,0);
+  const priv = BANKS.filter(b=>b.type==='private').reduce((a,b)=>a+b.assets,0);
+  const foreign = BANKS.filter(b=>b.type==='foreign').reduce((a,b)=>a+b.assets,0);
+  mkChart('ch-home-pie', { type:'doughnut', data:{
+    labels:['Государственные','Частные','Иностранные'],
+    datasets:[{ data:[state,priv,foreign], backgroundColor:[BLUE,GREEN,AMBER], borderWidth:3, borderColor:'#fff' }]
+  }, options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ position:'right', labels:{font:{size:12}} } } }});
+
+  // BANKS - ROA/ROE
+  const top10 = sorted.slice(0,10);
+  mkChart('ch-roa-roe', { type:'bar', data:{
+    labels: top10.map(b=>b.short),
+    datasets:[
+      { label:'ROA (%)', data:top10.map(b=>b.roa), backgroundColor:GREEN, borderRadius:4 },
+      { label:'ROE (%)', data:top10.map(b=>b.roe/5), backgroundColor:BLUE, borderRadius:4 }
+    ]
+  }, options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{position:'top'}, tooltip:{callbacks:{label:(ctx)=>ctx.dataset.label+': '+ctx.raw.toFixed(1)+(ctx.datasetIndex===1?' (÷5)':'')+'%'}} },
+    scales:{ y:{ beginAtZero:true, grid:{color:'#f3f4f6'} }, x:{grid:{display:false}} } }});
+
+  // BANKS - profit
+  const byProfit = [...BANKS].sort((a,b)=>b.net_profit-a.net_profit).slice(0,10);
+  mkChart('ch-profit', { type:'bar', data:{
+    labels: byProfit.map(b=>b.short),
+    datasets:[{ label:'Чистая прибыль (млн сом.)', data:byProfit.map(b=>b.net_profit),
+      backgroundColor:PALETTE, borderRadius:6, borderSkipped:false }]
+  }, options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}},
+    scales:{ y:{ beginAtZero:true, grid:{color:'#f3f4f6'} }, x:{grid:{display:false}} } }});
+
+  // BANKS - income structure
+  const top6 = sorted.slice(0,6);
+  mkChart('ch-income-struct', { type:'bar', data:{
+    labels: top6.map(b=>b.short),
+    datasets:[
+      { label:'Процентный доход', data:top6.map(b=>b.int_income), backgroundColor:BLUE, borderRadius:4, stack:'s' },
+      { label:'Комиссионный доход', data:top6.map(b=>b.com_income), backgroundColor:GREEN, borderRadius:4, stack:'s' },
+      { label:'FX доход', data:top6.map(b=>b.fx_income), backgroundColor:AMBER, borderRadius:4, stack:'s' },
+      { label:'Прочее', data:top6.map(b=>b.other_income||0), backgroundColor:'#e5e7eb', borderRadius:4, stack:'s' },
+    ]
+  }, options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'top'}},
+    scales:{ y:{ beginAtZero:true, stacked:true, grid:{color:'#f3f4f6'} }, x:{stacked:true, grid:{display:false}} } }});
+
+  // OPU charts
+  const top8opu = BANKS.slice(0,8);
+  mkChart('ch-opu-bar', { type:'bar', data:{
+    labels: top8opu.map(b=>b.short),
+    datasets:[
+      { label:'Проц. доход', data:top8opu.map(b=>b.int_income), backgroundColor:GREEN, borderRadius:4 },
+      { label:'Проц. расход', data:top8opu.map(b=>-b.int_expense), backgroundColor:RED, borderRadius:4 },
+      { label:'Опер. расходы', data:top8opu.map(b=>-b.opex), backgroundColor:AMBER, borderRadius:4 },
+    ]
+  }, options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'top'}},
+    scales:{ y:{ grid:{color:'#f3f4f6'} }, x:{grid:{display:false}} } }});
+
+  const byP = [...BANKS].sort((a,b)=>b.net_profit-a.net_profit).slice(0,10);
+  mkChart('ch-opu-profit', { type:'bar', data:{
+    labels: byP.map(b=>b.short),
+    datasets:[{ label:'Чистая прибыль', data:byP.map(b=>b.net_profit),
+      backgroundColor:byP.map(b=>b.net_profit>100?GREEN:b.net_profit>50?BLUE:AMBER),
+      borderRadius:6 }]
+  }, options:{ responsive:true, maintainAspectRatio:false, indexAxis:'y', plugins:{legend:{display:false}},
+    scales:{ x:{ beginAtZero:true, grid:{color:'#f3f4f6'} }, y:{grid:{display:false}} } }});
+
+  // MDO charts
+  const mdoS = [...MDO].sort((a,b)=>b.assets-a.assets);
+  mkChart('ch-mdo-assets', { type:'bar', data:{
+    labels: mdoS.map(m=>m.name.replace('МДО ','').replace(/"/g,'')),
+    datasets:[
+      { label:'Активы', data:mdoS.map(m=>m.assets), backgroundColor:BLUE, borderRadius:4 },
+      { label:'Кред. портфель', data:mdoS.map(m=>m.loans), backgroundColor:GREEN, borderRadius:4 },
+    ]
+  }, options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'top'}},
+    scales:{ y:{ beginAtZero:true, grid:{color:'#f3f4f6'} }, x:{grid:{display:false}} } }});
+
+  mkChart('ch-mdo-roa', { type:'bar', data:{
+    labels: mdoS.map(m=>m.name.replace('МДО ','').replace(/"/g,'')),
+    datasets:[
+      { label:'ROA (%)', data:mdoS.map(m=>m.roa), backgroundColor:GREEN, borderRadius:4 },
+      { label:'ROE (%)', data:mdoS.map(m=>m.roe/4), backgroundColor:BLUE, borderRadius:4 },
+    ]
+  }, options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'top'}, tooltip:{callbacks:{label:(ctx)=>ctx.dataset.label+': '+(ctx.datasetIndex===1?(ctx.raw*4).toFixed(1):ctx.raw.toFixed(1))+'%'}} },
+    scales:{ y:{ beginAtZero:true, grid:{color:'#f3f4f6'} }, x:{grid:{display:false}} } }});
+}
+
+/* =====================================================
+   NAVIGATION
+   ===================================================== */
+function showPage(id) {
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('pg-'+id).classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(b=>b.classList.remove('active'));
+  const nav = document.querySelectorAll('.nav-link');
+  const map = {home:0,banks:1,opu:2,mdo:3,products:4,fx:5,calc:6};
+  if(map[id]!==undefined) nav[map[id]].classList.add('active');
+  document.getElementById('site-hero').style.display = id==='home' ? 'block' : 'none';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* =====================================================
+   TABS
+   ===================================================== */
+function switchTab(group, tab) {
+  const btn = event.currentTarget || event.target;
+  // panels
+  document.querySelectorAll(`[id^="tab-${group}-"]`).forEach(p=>p.classList.remove('active'));
+  const panel = document.getElementById(`tab-${group}-${tab}`);
+  if(panel) panel.classList.add('active');
+  // buttons
+  if(btn && btn.closest('.tab-row')) {
+    btn.closest('.tab-row').querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+}
+
+/* =====================================================
+   INIT
+   ===================================================== */
+document.addEventListener('DOMContentLoaded', () => {
+  // Render all data
+  renderHomeTop5();
+  renderBankBalance();
+  renderBankEfficiency();
+  renderBankAnalytics();
+  renderBankIncome();
+  renderOPU();
+  renderMDOBalance();
+  renderMDOOPU();
+  renderMDOAnalytics();
+  renderCredits();
+  renderDeposits();
+  renderCards();
+  renderRKO();
+  renderSalary();
+  renderAcquiring();
+  renderFX();
+  buildCharts();
+
+  // Enter on calc inputs
+  ['cc-amount','cc-term','cc-rate'].forEach(id=>{
+    document.getElementById(id).addEventListener('keydown',e=>{if(e.key==='Enter') calcCredit();});
+  });
+  ['dc-amount','dc-term','dc-rate'].forEach(id=>{
+    document.getElementById(id).addEventListener('keydown',e=>{if(e.key==='Enter') calcDeposit();});
+  });
+});
+
+/* =====================================================
+   FUTURE API HOOK (заготовка)
+   ===================================================== */
+// async function loadFromAPI() {
+//   try {
+//     const res = await fetch('https://api.sravni.tj/v1/banks');
+//     const data = await res.json();
+//     return data;
+//   } catch(e) {
+//     console.warn('API unavailable, using mock data');
+//     return BANKS;
+//   }
+// }
+</script>
+
+</body>
+</html>
